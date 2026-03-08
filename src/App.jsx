@@ -5,7 +5,7 @@ import {
   Login,
   DashboardLayout,
   Error,
-  Landing,
+  LandingPage,
 } from "./pages";
 
 const router = createBrowserRouter([
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Landing />,
+        element: <LandingPage />,
       },
       {
         path: "register",

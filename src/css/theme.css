@@ -1,0 +1,56 @@
+/**
+ * Astra theme – cosmic dark palette.
+ * Use these variables in styled-components: var(--astra-bg), etc.
+ * Import this file from index.css so they're available globally.
+ */
+:root {
+  /* Astra / cosmic theme */
+  --astra-bg: #0f0f12;
+  --astra-surface: #1a1a1f;
+  --astra-card: #222228;
+  --astra-border: #2d2d35;
+  --astra-text: #e8e8ec;
+  --astra-text-inverse: #0f0f12;
+  --astra-muted: #8a8a94;
+  --astra-accent: #a0a0b0;
+  --astra-white: #ffffff;
+
+  /* Semantic aliases – map global names to Astra for consistency */
+  --background-color: var(--astra-bg);
+  --text-color: var(--astra-text);
+  --background-secondary-color: var(--astra-surface);
+  --text-secondary-color: var(--astra-muted);
+  --border-color: var(--astra-border);
+  --card-background: var(--astra-card);
+  --accent-color: var(--astra-accent);
+
+  /* 404 error graphic – candlestick theme (dark) */
+  --error-404-bear: #ef1c24;
+  --error-404-bull: #1cbd52;
+  --error-404-chart: #2cb32c;
+
+  /* 404 page – neon/retro (alias for same tokens; light theme overrides below) */
+  --error-404-neon-red: var(--error-404-bear);
+  --error-404-neon-green: var(--error-404-bull);
+}
+
+/* 404 page animations */
+@keyframes error404-flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.7; }
+}
+@keyframes error404-chart-move {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* Light theme – for 404 graphic and any light-mode overrides */
+.light-theme {
+  --background-color: #f8fafc;
+  --text-color: #0f172a;
+  --error-404-bear: #b91c1c;
+  --error-404-bull: #0f5132;
+  --error-404-chart: #0e7c86;
+  --error-404-neon-red: var(--error-404-bear);
+  --error-404-neon-green: var(--error-404-bull);
+}
