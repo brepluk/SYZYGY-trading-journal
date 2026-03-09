@@ -1,34 +1,30 @@
+import { Link } from "react-router-dom";
 import Logo from "../components/Logo";
 import FormRow from "../components/FormRow";
 import Starfield from "../components/Starfield";
-import Wrapper, {
-  Nav,
-  Logo as NavLogo,
-  NavActions,
-  HomeLink,
-  LoginNavLink,
-  FormSection,
-  FormCard,
-  MemberText,
-  MemberLink,
-} from "../wrappers/RegisterAndLoginPage";
+import Wrapper from "../wrappers/RegisterAndLoginPage";
 
 const Register = () => {
   return (
     <Wrapper>
       <Starfield />
-      <Nav>
-        <NavLogo to="/" />
-        <NavActions>
-          <HomeLink to="/">Home</HomeLink>
-          <LoginNavLink to="/login">Login</LoginNavLink>
-        </NavActions>
-      </Nav>
+      <nav className="nav">
+        <Link to="/" className="logo">
+          <Logo />
+        </Link>
+        <div className="nav-actions">
+          <Link to="/" className="nav-link">
+            Home
+          </Link>
+          <Link to="/login" className="nav-link">
+            Login
+          </Link>
+        </div>
+      </nav>
 
-      <FormSection>
-        <FormCard>
+      <section className="form-section">
+        <div className="form-card">
           <form className="form">
-            <Logo />
             <h4>Register</h4>
             <FormRow type="text" name="name" />
             <FormRow type="email" name="email" />
@@ -36,13 +32,15 @@ const Register = () => {
             <button type="submit" className="btn btn-block">
               submit
             </button>
-            <MemberText>
+            <p className="member-text">
               Already a member?
-              <MemberLink to="/login">Login</MemberLink>
-            </MemberText>
+              <Link to="/login" className="member-link">
+                Login
+              </Link>
+            </p>
           </form>
-        </FormCard>
-      </FormSection>
+        </div>
+      </section>
     </Wrapper>
   );
 };
