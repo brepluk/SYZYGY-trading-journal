@@ -4,16 +4,14 @@ import { FiClipboard, FiBarChart2, FiBook } from "react-icons/fi";
 import Logo from "../components/Logo";
 import Starfield from "../components/Starfield";
 import Wrapper from "../wrappers/LandingPage";
-import ss2 from "../assets/images/SS2.png";
-import ss3 from "../assets/images/SS3.png";
-import ss4 from "../assets/images/SS4.png";
-import ss5 from "../assets/images/SS5.png";
+import SS1 from "../assets/images/SS1.PNG";
+import SS2 from "../assets/images/SS2.PNG";
+import SS3 from "../assets/images/SS3.PNG";
 
 const SCREENSHOTS = [
-  { src: ss2, alt: "Astra — trade logging" },
-  { src: ss3, alt: "Astra — analytics" },
-  { src: ss4, alt: "Astra — journal" },
-  { src: ss5, alt: "Astra — dashboard" },
+  { src: SS1, alt: "Astra — trade logging" },
+  { src: SS2, alt: "Astra — analytics" },
+  { src: SS3, alt: "Astra — journal" },
 ];
 const AUTO_ADVANCE_MS = 4500;
 
@@ -29,8 +27,7 @@ const LandingPage = () => {
 
   const goPrev = () =>
     setCarouselIndex((i) => (i - 1 + SCREENSHOTS.length) % SCREENSHOTS.length);
-  const goNext = () =>
-    setCarouselIndex((i) => (i + 1) % SCREENSHOTS.length);
+  const goNext = () => setCarouselIndex((i) => (i + 1) % SCREENSHOTS.length);
 
   const tools = [
     {
@@ -54,9 +51,7 @@ const LandingPage = () => {
     <Wrapper>
       <Starfield count={80} />
       <nav className="nav">
-        <Link to="/" className="logo">
-          <Logo />
-        </Link>
+        <Logo className="logo" />
         <div className="nav-actions">
           <Link to="/login" className="nav-link">
             Login
@@ -69,7 +64,9 @@ const LandingPage = () => {
 
       <section className="section about-section">
         <h1 className="about-title">Astra</h1>
-        <p className="about-sub">by FXTech — Your trading journal, in one place</p>
+        <p className="about-sub">
+          by FXTech — Your trading journal, in one place
+        </p>
         <p className="about-body">
           Track every trade, review your decisions, and sharpen your edge with
           clear analytics and a simple journal built for serious traders.
@@ -123,6 +120,7 @@ const LandingPage = () => {
                   src={shot.src}
                   alt={shot.alt}
                   className="carousel-image"
+                  loading={i === carouselIndex ? "eager" : "lazy"}
                 />
               </div>
             ))}

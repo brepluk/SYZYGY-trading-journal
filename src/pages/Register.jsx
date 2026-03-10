@@ -9,9 +9,7 @@ const Register = () => {
     <Wrapper>
       <Starfield />
       <nav className="nav">
-        <Link to="/" className="logo">
-          <Logo />
-        </Link>
+        <Logo className="logo" />
         <div className="nav-actions">
           <Link to="/" className="nav-link">
             Home
@@ -26,9 +24,9 @@ const Register = () => {
         <div className="form-card">
           <form className="form">
             <h4>Register</h4>
-            <FormRow type="text" name="name" />
-            <FormRow type="email" name="email" />
-            <FormRow type="password" name="password" />
+            <FormRow type="text" name="name" value="Foosh Singh" />
+            <FormRow type="email" name="email" value="foosh@gmail.com" />
+            <FormRow type="password" name="password" value="123456" />
             <button type="submit" className="btn btn-block">
               submit
             </button>

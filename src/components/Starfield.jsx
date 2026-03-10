@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -26,17 +27,21 @@ const Star = styled.span`
 `;
 
 function Starfield({ count = 60 }) {
-  const stars = [];
-  for (let i = 0; i < count; i++) {
-    stars.push({
-      id: i,
-      left: Math.random() * 100,
-      top: Math.random() * 100,
-      size: Math.random() * 2 + 0.5,
-      opacity: Math.random() * 0.5 + 0.2,
-      duration: Math.random() * 2 + 2,
-    });
-  }
+  const stars = useMemo(() => {
+    const list = [];
+    for (let i = 0; i < count; i++) {
+      list.push({
+        id: i,
+        left: Math.random() * 100,
+        top: Math.random() * 100,
+        size: Math.random() * 2 + 0.5,
+        opacity: Math.random() * 0.5 + 0.2,
+        duration: Math.random() * 2 + 2,
+      });
+    }
+    return list;
+  }, [count]);
+
   return (
     <Container>
       {stars.map((s) => (
