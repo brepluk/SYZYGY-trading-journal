@@ -32,6 +32,9 @@
   /* 404 page – neon/retro (alias for same tokens; light theme overrides below) */
   --error-404-neon-red: var(--error-404-bear);
   --error-404-neon-green: var(--error-404-bull);
+
+  /* Starfield */
+  --star-color: rgba(255, 255, 255, 0.9);
 }
 
 /* 404 page animations */
@@ -44,13 +47,35 @@
   100% { transform: translateX(-50%); }
 }
 
-/* Light theme – for 404 graphic and any light-mode overrides */
+/* Light theme – full palette overrides */
 .light-theme {
-  --background-color: #f8fafc;
-  --text-color: #0f172a;
+  /* Astra / light cosmic theme */
+  --astra-bg: #f8fafc;
+  --astra-surface: #ffffff;
+  --astra-card: #ffffff;
+  --astra-border: #e2e8f0;
+  --astra-text: #0f172a;
+  --astra-text-inverse: #ffffff;
+  --astra-muted: #64748b;
+  --astra-accent: #0e7c86;
+  --astra-white: #ffffff;
+
+  /* Semantic aliases */
+  --background-color: var(--astra-bg);
+  --text-color: var(--astra-text);
+  --background-secondary-color: var(--astra-surface);
+  --text-secondary-color: var(--astra-muted);
+  --border-color: var(--astra-border);
+  --card-background: var(--astra-card);
+  --accent-color: var(--astra-accent);
+
+  /* 404 light variations */
   --error-404-bear: #b91c1c;
   --error-404-bull: #0f5132;
   --error-404-chart: #0e7c86;
   --error-404-neon-red: var(--error-404-bear);
   --error-404-neon-green: var(--error-404-bull);
+
+  /* Starfield – darker stars on light sky */
+  --star-color: #020617;
 }

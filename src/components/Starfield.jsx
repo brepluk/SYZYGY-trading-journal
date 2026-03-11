@@ -11,7 +11,7 @@ const Container = styled.div`
 
 const Star = styled.span`
   position: absolute;
-  background: #fff;
+  background: var(--star-color, #fff);
   border-radius: 50%;
   opacity: ${(p) => p.$opacity ?? 0.5};
   animation: twinkle ${(p) => (p.$duration ?? 3) + "s"} ease-in-out infinite;

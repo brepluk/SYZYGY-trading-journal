@@ -1,14 +1,24 @@
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
 import Wrapper from "../wrappers/DashboardLayout";
-import { Navbar, BigSidebar, SmallSidebar } from "../components";
+import { Navbar, BigSidebar, SmallSidebar, Starfield } from "../components";
 
 const DashboardLayout = () => {
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+
+  const user = {name: 'Foosh'}
+
+
   return (
-    <Wrapper>
+    <Wrapper $sidebarCollapsed={sidebarCollapsed}>
+      <Starfield count={80} />
       <main className="dashboard">
-        <SmallSidebar />
-        <BigSidebar />
-        <div>
+        {sidebarCollapsed ? (
+          <SmallSidebar onExpand={() => setSidebarCollapsed(false)} />
+        ) : (
+          <BigSidebar onCollapse={() => setSidebarCollapsed(true)} />
+        )}
+        <div className="dashboard-main">
           <Navbar />
           <div className="dashboard-page">
             <Outlet />

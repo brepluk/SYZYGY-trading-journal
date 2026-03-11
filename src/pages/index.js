@@ -1,6 +1,7 @@
 export { default as AddTrade } from "./AddTrade";
 export { default as Admin } from "./Admin";
 export { default as AllTrades } from "./AllTrades";
+export { default as Dashboard } from "./Dashboard";
 export { default as DashboardLayout } from "./DashboardLayout";
 export { default as DeleteTrade } from "./DeleteTrade";
 export { default as EditTrade } from "./EditTrade";
