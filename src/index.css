@@ -67,12 +67,6 @@ html {
   --shadow-astra: 0 20px 50px rgba(0, 0, 0, 0.4);
 }
 
-/* Theme is set in css/theme.css (Astra). Override class for alternate themes if needed. */
-.dark-theme {
-  --background-color: var(--astra-bg);
-  --text-color: var(--astra-text);
-}
-
 body {
   background: var(--background-color);
   color: var(--text-color);
@@ -90,6 +84,11 @@ body {
     sans-serif;
   font-weight: 400;
   line-height: 1;
+}
+
+/* React-icons and other SVGs inherit theme color so they match Astra */
+svg {
+  color: currentColor;
 }
 
 .profile-page {
@@ -117,43 +116,6 @@ body {
   color: var(--text-secondary-color);
 }
 
-.theme-options {
-  display: grid;
-  gap: 0.75rem;
-}
-
-.theme-option {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.65rem 0.9rem;
-  border-radius: var(--border-radius);
-  border: 1px solid var(--border-color);
-  background: var(--card-background);
-  cursor: pointer;
-  transition: border-color var(--transition), box-shadow var(--transition),
-    background var(--transition), transform var(--transition);
-}
-
-.theme-option--active {
-  border-color: var(--accent-color);
-  box-shadow: var(--shadow-1);
-  transform: translateY(-1px);
-}
-
-.theme-option input[type="radio"] {
-  accent-color: var(--accent-color);
-}
-
-.theme-option-label {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-
-.theme-hint {
-  margin-left: auto;
-  color: var(--text-secondary-color);
-}
 p {
   margin: 0;
 }
@@ -324,7 +286,7 @@ button:disabled {
   padding: 0.375rem 0.75rem;
   border-radius: var(--border-radius);
   background: var(--background-color);
-  border: 1px solid var(--grey-300);
+  border: 1px solid var(--border-color);
   color: var(--text-color);
 }
 .form-input,
@@ -341,7 +303,7 @@ button:disabled {
 }
 ::placeholder {
   font-family: inherit;
-  color: var(--grey-400);
+  color: var(--text-secondary-color);
 }
 .form-alert {
   color: var(--red-dark);
@@ -359,9 +321,9 @@ button:disabled {
 .loading {
   width: 6rem;
   height: 6rem;
-  border: 5px solid var(--grey-400);
+  border: 5px solid var(--astra-border);
   border-radius: 50%;
-  border-top-color: var(--primary-500);
+  border-top-color: var(--astra-accent);
   animation: spinner 0.6s linear infinite;
 }
 
@@ -372,7 +334,7 @@ button:disabled {
 }
 
 .title-underline {
-  background: var(--primary-500);
+  background: var(--astra-accent);
   width: 7rem;
   height: 0.25rem;
   margin: 0 auto;

@@ -8,6 +8,7 @@ import {
   HiOutlineChevronLeft,
 } from "react-icons/hi";
 import Wrapper from "../wrappers/BigSidebar";
+import { useDashboardContext } from "../pages/DashboardLayout";
 
 const navItems = [
   { to: "/dashboard/add-trade", label: "Add Trade", icon: HiOutlinePlusCircle },
@@ -16,9 +17,11 @@ const navItems = [
   { to: "/dashboard/stats", label: "Stats", icon: HiOutlineChartBar },
 ];
 
-const BigSidebar = ({ onCollapse }) => {
+const BigSidebar = ({ className }) => {
+  const { toggleSidebar } = useDashboardContext();
+
   return (
-    <Wrapper>
+    <Wrapper className={className}>
       <div className="sidebar-inner">
         <div className="sidebar-logo">
           <Logo to="/dashboard" />
@@ -41,7 +44,7 @@ const BigSidebar = ({ onCollapse }) => {
         <button
           type="button"
           className="sidebar-collapse"
-          onClick={onCollapse}
+          onClick={toggleSidebar}
           aria-label="Collapse sidebar"
         >
           <HiOutlineChevronLeft size={20} />

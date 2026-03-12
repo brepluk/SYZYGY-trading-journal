@@ -1,6 +1,8 @@
 import { useLocation, Link } from "react-router-dom";
+import { FaAlignLeft } from "react-icons/fa";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import Wrapper from "../wrappers/Navbar";
+import { useDashboardContext } from "../pages/DashboardLayout";
 
 const SECTION_LABELS = {
   "/dashboard": "Dashboard",
@@ -14,13 +16,13 @@ const DATE_FILTERS = [
   "Today",
   "This week",
   "This month",
-  "Last month",
   "This quarter",
   "YTD",
   "All time",
 ];
 
 const Navbar = () => {
+  const { toggleSidebar } = useDashboardContext();
   const location = useLocation();
   const pathname = location.pathname;
   const sectionLabel =
@@ -30,25 +32,39 @@ const Navbar = () => {
 
   return (
     <Wrapper>
-      <h1 className="navbar-title">{sectionLabel}</h1>
-      <div className="navbar-filters">
-        <span className="navbar-filter-label">Date range</span>
-        <select className="navbar-filter-select" defaultValue={DATE_FILTERS[0]}>
-          {DATE_FILTERS.map((label) => (
-            <option key={label} value={label}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div>
-      <div className="navbar-profile">
-        <Link
-          to="/dashboard/profile"
-          className="navbar-avatar"
-          aria-label="Open profile and settings"
-        >
-          <HiOutlineUserCircle size={24} />
-        </Link>
+      <div className="nav-center">
+        <div className="nav-left">
+          <button
+            type="button"
+            className="toggle-btn"
+            onClick={toggleSidebar}
+            aria-label="Toggle sidebar"
+          >
+            <FaAlignLeft />
+          </button>
+          <h4 className="logo-text">{sectionLabel}</h4>
+        </div>
+
+        <div className="date-filter">
+          <span className="date-filter-label"></span>
+          <select className="date-filter-select" defaultValue={DATE_FILTERS[0]}>
+            {DATE_FILTERS.map((label) => (
+              <option key={label} value={label}>
+                {label}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="btn-container">
+          <Link
+            to="/dashboard/profile"
+            className="profile-link"
+            aria-label="Open profile and settings"
+          >
+            <HiOutlineUserCircle size={24} />
+          </Link>
+        </div>
       </div>
     </Wrapper>
   );

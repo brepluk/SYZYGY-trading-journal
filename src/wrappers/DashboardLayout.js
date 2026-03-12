@@ -9,6 +9,14 @@ const Wrapper = styled.section`
     grid-template-columns: 1fr;
     min-height: 100vh;
   }
+  .dashboard-sidebars {
+    position: relative;
+  }
+  .dashboard-sidebars .small-sidebar,
+  .dashboard-sidebars .big-sidebar {
+    position: absolute;
+    inset: 0;
+  }
   .dashboard-main {
     display: flex;
     flex-direction: column;
@@ -21,10 +29,16 @@ const Wrapper = styled.section`
     margin: 0 auto;
     padding: 1.5rem 1.5rem 2rem;
   }
+  .small-sidebar {
+    display: ${(p) => (p.$showSidebar ? "none" : "block")};
+  }
+  .big-sidebar {
+    display: ${(p) => (p.$showSidebar ? "block" : "none")};
+  }
   @media (min-width: 992px) {
     .dashboard {
       grid-template-columns: ${(p) =>
-        p.$sidebarCollapsed ? SIDEBAR_WIDTH_COLLAPSED : SIDEBAR_WIDTH} 1fr;
+        p.$showSidebar ? SIDEBAR_WIDTH : SIDEBAR_WIDTH_COLLAPSED} 1fr;
       transition: grid-template-columns 0.2s ease;
     }
   }
