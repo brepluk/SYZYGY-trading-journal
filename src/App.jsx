@@ -46,12 +46,12 @@ const router = createBrowserRouter([
             element: <AllTrades />,
           },
           {
-            path: "profile",
-            element: <Profile />,
-          },
-          {
             path: "stats",
             element: <Stats />,
+          },
+          {
+            path: "profile",
+            element: <Profile />,
           },
         ],
       },
