@@ -1,71 +1,28 @@
-// import { NavLink } from "react-router-dom";
-// import Logo from "./Logo";
-// import {
-//   HiOutlinePlusCircle,
-//   HiOutlineViewGrid,
-//   HiOutlineClipboardList,
-//   HiOutlineChartBar,
-//   HiOutlineChevronRight,
-// } from "react-icons/hi";
-// import Wrapper from "../wrappers/SmallSidebar";
-// import { useDashboardContext } from "../pages/DashboardLayout";
-
-// const navItems = [
-//   { to: "/dashboard/add-trade", icon: HiOutlinePlusCircle, title: "Add Trade" },
-//   { to: "/dashboard", end: true, icon: HiOutlineViewGrid, title: "Dashboard" },
-//   { to: "/dashboard/all-trades", icon: HiOutlineClipboardList, title: "All Trades" },
-//   { to: "/dashboard/stats", icon: HiOutlineChartBar, title: "Stats" },
-// ];
-
-// const SmallSidebar = ({ className }) => {
-//   const { toggleSidebar } = useDashboardContext();
-
-//   return (
-//     <Wrapper className={className}>
-//       <div className="sidebar-inner">
-//         <div className="sidebar-logo">
-//           <Logo to="/dashboard" />
-//         </div>
-//         <nav className="sidebar-nav">
-//           {navItems.map(({ to, icon: Icon, title, end }) => (
-//             <NavLink
-//               key={to}
-//               to={to}
-//               end={!!end}
-//               title={title}
-//               aria-label={title}
-//               className={({ isActive }) =>
-//                 `sidebar-link${isActive ? " active" : ""}`
-//               }
-//             >
-//               <Icon size={22} />
-//             </NavLink>
-//           ))}
-//         </nav>
-//         <button
-//           type="button"
-//           className="sidebar-expand"
-//           onClick={toggleSidebar}
-//           aria-label="Expand sidebar"
-//         >
-//           <HiOutlineChevronRight size={20} />
-//         </button>
-//       </div>
-//     </Wrapper>
-//   );
-// };
-
-// export default SmallSidebar;
-
 import Wrapper from "../wrappers/SmallSidebar";
 import { useDashboardContext } from "../pages/DashboardLayout";
+import { FaTimes } from "react-icons/fa";
+import Logo from "./Logo";
+import NavLinks from "./NavLinks";
 
 const SmallSidebar = () => {
-  const data = useDashboardContext();
-  console.log(data);
+  const { showSidebar, toggleSidebar } = useDashboardContext();
   return (
     <Wrapper>
-      <h1>Small Sidebar</h1>
+      <div
+        className={
+          showSidebar ? "sidebar-container show-sidebar" : "sidebar-container"
+        }
+      >
+        <div className="content">
+          <button type="button" className="close-btn" onClick={toggleSidebar}>
+            <FaTimes />
+          </button>
+          <header className="sidebar-logo">
+            <Logo />
+          </header>
+          <NavLinks />
+        </div>
+      </div>
     </Wrapper>
   );
 };

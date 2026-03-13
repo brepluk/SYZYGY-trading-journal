@@ -12,7 +12,7 @@ export default function Logo({ to = "/", className, ...props }) {
         viewBox="0 0 120 32"
         fill="none"
         aria-hidden
-        style={{ display: "block", height: "1.5rem", width: "auto" }}
+        style={{ display: "block", width: "auto" }}
       >
         <text
           x="0"
@@ -42,3 +42,11 @@ export default function Logo({ to = "/", className, ...props }) {
     </Link>
   );
 }
+
+// import logo from "../assets/logo.svg"
+
+// const Logo = () => {
+//   return <img src={logo} alt="Astra" className="logo" />;
+// };
+
+// export default Logo;

@@ -24,9 +24,9 @@ const Register = () => {
         <div className="form-card">
           <form className="form">
             <h4>Register</h4>
-            <FormRow type="text" name="name" value="Foosh Singh" />
-            <FormRow type="email" name="email" value="foosh@gmail.com" />
-            <FormRow type="password" name="password" value="123456" />
+            <FormRow type="text" name="name" defaultValue="Foosh Singh" />
+            <FormRow type="email" name="email" defaultValue="foosh@gmail.com" />
+            <FormRow type="password" name="password" defaultValue="123456" />
             <button type="submit" className="btn btn-block">
               submit
             </button>

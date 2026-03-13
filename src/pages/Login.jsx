@@ -8,9 +8,7 @@ const Login = () => {
     <Wrapper>
       <Starfield />
       <nav className="nav">
-        <Link to="/" className="logo">
-          <Logo />
-        </Link>
+        <Logo className="logo" />
         <div className="nav-actions">
           <Link to="/" className="nav-link">
             Home
@@ -28,7 +26,7 @@ const Login = () => {
             <FormRow
               type="email"
               name="email"
-              defaultValuevalue="foosh@gmail.com"
+              defaultValue="foosh@gmail.com"
             />
             <FormRow type="password" name="password" defaultValue="123456" />
             <button type="submit" className="btn btn-block">

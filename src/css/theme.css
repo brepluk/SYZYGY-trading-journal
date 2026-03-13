@@ -15,14 +15,7 @@
   --astra-accent: #a0a0b0;
   --astra-white: #ffffff;
 
-  /* Semantic aliases – map global names to Astra for consistency */
-  --background-color: var(--astra-bg);
-  --text-color: var(--astra-text);
-  --background-secondary-color: var(--astra-surface);
-  --text-secondary-color: var(--astra-muted);
-  --border-color: var(--astra-border);
-  --card-background: var(--astra-card);
-  --accent-color: var(--astra-accent);
+  /* Semantic aliases set in index.css (:root = light, .dark-theme = Astra) */
 
   /* 404 error graphic – candlestick theme (dark) */
   --error-404-bear: #ef1c24;
@@ -39,10 +32,26 @@
 
 /* 404 page animations */
 @keyframes error404-flicker {
-  0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.7; }
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    opacity: 0.7;
+  }
 }
 @keyframes error404-chart-move {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }

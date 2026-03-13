@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const Wrapper = styled.main`
   min-height: 100vh;
-  background: var(--astra-bg);
+  background: var(--background-color);
 
   .nav {
     position: relative;
@@ -13,16 +13,21 @@ const Wrapper = styled.main`
     padding: 1.25rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
-    border-bottom: 1px solid var(--astra-border);
+    border-bottom: 1px solid var(--border-color);
   }
+
   .logo {
     display: flex;
     align-items: center;
-    color: var(--astra-text);
+    color: var(--logo-color);
     text-decoration: none;
     &:hover {
-      color: var(--astra-white);
+      color: var(--accent-color);
     }
+  }
+  .logo svg {
+    height: 1.5rem;
+    width: auto;
   }
   .nav-actions {
     display: flex;
@@ -30,35 +35,35 @@ const Wrapper = styled.main`
     gap: 0.75rem;
   }
   .nav-link {
-    color: var(--astra-muted);
+    color: var(--text-secondary-color);
     text-decoration: none;
     font-size: 0.95rem;
     padding: 0.5rem 1rem;
-    border: 1px solid var(--astra-border);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     transition: color var(--transition), border-color var(--transition),
       background var(--transition);
     &:hover {
-      color: var(--astra-text);
-      border-color: var(--astra-muted);
-      background: rgba(255, 255, 255, 0.03);
+      color: var(--text-color);
+      border-color: var(--accent-color);
+      background: var(--background-secondary-color);
     }
   }
   .nav-link-primary {
-    color: var(--astra-text-inverse);
-    background: var(--astra-text);
+    color: var(--btn-color);
+    background: var(--btn-bg);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
     padding: 0.5rem 1rem;
-    border: 1px solid var(--astra-text);
+    border: 1px solid var(--btn-bg);
     border-radius: var(--border-radius-lg);
     transition: color var(--transition), background var(--transition),
       border-color var(--transition);
     &:hover {
-      color: var(--astra-text);
-      background: var(--astra-white);
-      border-color: var(--astra-white);
+      color: var(--btn-color);
+      background: var(--accent-color);
+      border-color: var(--accent-color);
     }
   }
 
@@ -74,19 +79,19 @@ const Wrapper = styled.main`
     text-align: center;
   }
   .about-title {
-    color: var(--astra-text);
+    color: var(--text-color);
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 600;
     letter-spacing: var(--letter-spacing);
     margin-bottom: 1rem;
   }
   .about-sub {
-    color: var(--astra-muted);
+    color: var(--text-secondary-color);
     font-size: 0.9rem;
     margin-bottom: 1.5rem;
   }
   .about-body {
-    color: var(--astra-accent);
+    color: var(--accent-color);
     font-size: 1.05rem;
     line-height: 1.7;
     max-width: 560px;
@@ -94,7 +99,7 @@ const Wrapper = styled.main`
   }
 
   .tools-title {
-    color: var(--astra-text);
+    color: var(--text-color);
     font-size: clamp(1.35rem, 2.5vw, 1.75rem);
     font-weight: 600;
     text-align: center;
@@ -107,13 +112,13 @@ const Wrapper = styled.main`
     margin-bottom: 3rem;
   }
   .tool-card {
-    background: var(--astra-card);
-    border: 1px solid var(--astra-border);
+    background: var(--background-secondary-color);
+    border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 1.5rem;
     transition: border-color var(--transition), box-shadow var(--transition);
     &:hover {
-      border-color: var(--astra-muted);
+      border-color: var(--accent-color);
       box-shadow: var(--shadow-3);
     }
   }
@@ -124,13 +129,13 @@ const Wrapper = styled.main`
     opacity: 0.9;
   }
   .tool-name {
-    color: var(--astra-text);
+    color: var(--text-color);
     font-size: 1.1rem;
     font-weight: 600;
     margin-bottom: 0.35rem;
   }
   .tool-desc {
-    color: var(--astra-muted);
+    color: var(--text-secondary-color);
     font-size: var(--small-text);
     line-height: 1.5;
   }
@@ -140,7 +145,7 @@ const Wrapper = styled.main`
     padding-bottom: 4rem;
   }
   .dashboard-title {
-    color: var(--astra-text);
+    color: var(--text-color);
     font-size: clamp(1.35rem, 2.5vw, 1.75rem);
     font-weight: 600;
     text-align: center;
@@ -202,7 +207,7 @@ const Wrapper = styled.main`
     border: none;
     cursor: pointer;
     padding: 0;
-    background: var(--astra-muted);
+    background: var(--text-secondary-color);
     opacity: 0.5;
     transition: opacity var(--transition), background var(--transition),
       transform var(--transition);
@@ -212,7 +217,7 @@ const Wrapper = styled.main`
     transform: scale(1.2);
   }
   .carousel-dot.active {
-    background: var(--astra-text);
+    background: var(--text-color);
     opacity: 1;
   }
   .carousel-arrow {
@@ -222,9 +227,9 @@ const Wrapper = styled.main`
     width: 44px;
     height: 44px;
     border-radius: 50%;
-    border: 1px solid var(--astra-border);
-    background: var(--astra-surface);
-    color: var(--astra-text);
+    border: 1px solid var(--border-color);
+    background: var(--background-secondary-color);
+    color: var(--text-color);
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -234,9 +239,9 @@ const Wrapper = styled.main`
       background var(--transition);
     z-index: 2;
     &:hover {
-      border-color: var(--astra-muted);
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--astra-white);
+      border-color: var(--accent-color);
+      background: var(--border-color);
+      color: var(--text-color);
     }
     &:disabled {
       opacity: 0.4;

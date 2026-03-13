@@ -65,6 +65,55 @@ html {
   --shadow-4:
     0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
   --shadow-astra: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+  /* DARK MODE (Astra) – used when .dark-theme is on body */
+  --dark-mode-bg-color: var(--astra-bg);
+  --dark-mode-text-color: var(--astra-text);
+  --dark-mode-bg-secondary-color: var(--astra-surface);
+  --dark-mode-text-secondary-color: var(--astra-muted);
+
+  /* Light theme (default) – all white */
+  --background-color: var(--white);
+  --text-color: var(--grey-900);
+  --background-secondary-color: var(--white);
+  --text-secondary-color: var(--grey-500);
+  --border-color: var(--grey-200);
+  --logo-color: var(--grey-900);
+  --card-background: var(--white);
+  --accent-color: var(--grey-700);
+
+  /* 404 – light mode: dark accents on white */
+  --error-404-neon-green: #0f5132;
+  --error-404-neon-red: #842029;
+
+  --theme-option-active-bg: var(--grey-100);
+  --btn-bg: var(--grey-900);
+  --btn-color: var(--white);
+  --star-color: rgba(0, 0, 0, 0.08);
+}
+
+.dark-theme {
+  --text-color: var(--dark-mode-text-color);
+  --background-color: var(--dark-mode-bg-color);
+  --text-secondary-color: var(--dark-mode-text-secondary-color);
+  --background-secondary-color: var(--dark-mode-bg-secondary-color);
+  --border-color: var(--astra-border);
+  --logo-color: var(--astra-text);
+  --card-background: var(--astra-card);
+  --accent-color: var(--astra-accent);
+  --error-404-neon-green: var(--error-404-bull);
+  --error-404-neon-red: var(--error-404-bear);
+  --theme-option-active-bg: var(--astra-card);
+  --btn-bg: var(--astra-text);
+  --btn-color: var(--astra-text-inverse);
+  --star-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Logo: dark in light mode, light in dark mode */
+.logo,
+.logo a,
+.sidebar-logo a {
+  color: var(--logo-color) !important;
 }
 
 body {
@@ -200,35 +249,38 @@ ul {
 
 .btn {
   cursor: pointer;
-  color: var(--astra-text-inverse);
-  background: var(--astra-text);
-  border: 1px solid var(--astra-border);
+  color: var(--btn-color);
+  background: var(--btn-bg);
+  border: 1px solid var(--border-color);
   border-radius: var(--border-radius-lg, 0.5rem);
   letter-spacing: var(--letter-spacing);
   padding: 0.5rem 1rem;
   box-shadow: var(--shadow-1);
-  transition: color var(--transition), background var(--transition),
-    border-color var(--transition), box-shadow var(--transition);
+  transition:
+    color var(--transition),
+    background var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition);
   text-transform: capitalize;
   display: inline-block;
   font-size: 0.95rem;
   font-weight: 500;
 }
 .btn:hover {
-  background: var(--astra-white);
-  color: var(--astra-text-inverse);
-  border-color: var(--astra-white);
+  background: var(--accent-color);
+  color: var(--btn-color);
+  border-color: var(--accent-color);
   box-shadow: var(--shadow-2);
 }
 .btn-hipster {
-  color: var(--astra-text);
+  color: var(--text-color);
   background: transparent;
-  border-color: var(--astra-border);
+  border-color: var(--border-color);
 }
 .btn-hipster:hover {
-  color: var(--astra-white);
-  background: var(--astra-surface);
-  border-color: var(--astra-muted);
+  color: var(--accent-color);
+  background: var(--background-secondary-color);
+  border-color: var(--accent-color);
 }
 .btn-block {
   width: 100%;
@@ -321,9 +373,9 @@ button:disabled {
 .loading {
   width: 6rem;
   height: 6rem;
-  border: 5px solid var(--astra-border);
+  border: 5px solid var(--border-color);
   border-radius: 50%;
-  border-top-color: var(--astra-accent);
+  border-top-color: var(--accent-color);
   animation: spinner 0.6s linear infinite;
 }
 
@@ -334,7 +386,7 @@ button:disabled {
 }
 
 .title-underline {
-  background: var(--astra-accent);
+  background: var(--accent-color);
   width: 7rem;
   height: 0.25rem;
   margin: 0 auto;

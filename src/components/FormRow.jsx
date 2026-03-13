@@ -7,6 +7,7 @@ const FormRow = ({
   defaultValue,
 }) => {
   const label = labelText || name;
+  const isControlled = value !== undefined;
   return (
     <div className="form-row">
       <label htmlFor={name} className="form-label">
@@ -16,10 +17,12 @@ const FormRow = ({
         type={type}
         id={name}
         name={name}
-        value={value || ""}
-        onChange={handleChange}
         className="form-input"
-        defaultValue={defaultValue || ""}
+        {...(isControlled
+          ? { value, onChange: handleChange }
+          : defaultValue !== undefined
+            ? { defaultValue }
+            : {})}
         required
       />
     </div>

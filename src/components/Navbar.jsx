@@ -3,25 +3,11 @@ import { FaAlignLeft } from "react-icons/fa";
 import { HiOutlineUserCircle } from "react-icons/hi";
 import Wrapper from "../wrappers/Navbar";
 import { useDashboardContext } from "../pages/DashboardLayout";
-
-const SECTION_LABELS = {
-  "/dashboard": "Dashboard",
-  "/dashboard/add-trade": "Add Trade",
-  "/dashboard/all-trades": "All Trades",
-  "/dashboard/stats": "Stats",
-  "/dashboard/profile": "Profile",
-};
-
-const DATE_FILTERS = [
-  "Today",
-  "This week",
-  "This month",
-  "This quarter",
-  "YTD",
-  "All time",
-];
+import { SECTION_LABELS, DATE_FILTERS } from "../utils/links";
+import LogoutContainer from "./LogoutContainer";
 
 const Navbar = () => {
+  const { user } = useDashboardContext();
   const { toggleSidebar } = useDashboardContext();
   const location = useLocation();
   const pathname = location.pathname;
@@ -42,27 +28,30 @@ const Navbar = () => {
           >
             <FaAlignLeft />
           </button>
-          <h4 className="logo-text">{sectionLabel}</h4>
         </div>
 
-        <div className="date-filter">
-          <span className="date-filter-label"></span>
-          <select className="date-filter-select" defaultValue={DATE_FILTERS[0]}>
-            {DATE_FILTERS.map((label) => (
-              <option key={label} value={label}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </div>
+        <h4 className="nav-title">{sectionLabel}</h4>
 
-        <div className="btn-container">
+        <div className="nav-right">
+          <div className="date-filter">
+            <select
+              className="date-filter-select"
+              defaultValue={DATE_FILTERS[0]}
+            >
+              {DATE_FILTERS.map((label) => (
+                <option key={label} value={label}>
+                  {label}
+                </option>
+              ))}
+            </select>
+          </div>
           <Link
             to="/dashboard/profile"
             className="profile-link"
             aria-label="Open profile and settings"
           >
-            <HiOutlineUserCircle size={24} />
+            <HiOutlineUserCircle size={20} />
+            {user?.name && <span className="profile-name">{user.name}</span>}
           </Link>
         </div>
       </div>

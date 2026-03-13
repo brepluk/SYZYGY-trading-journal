@@ -1,5 +1,14 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeLayout from "./pages/HomeLayout";
+
+export const checkDefaultTheme = () => {
+  const stored = localStorage.getItem("darkTheme");
+  const isDarkTheme = stored === null ? true : stored === "true"; // default Astra
+  document.body.classList.toggle("dark-theme", isDarkTheme);
+  return isDarkTheme;
+};
+
+checkDefaultTheme();
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import DashboardLayout from "./pages/DashboardLayout";

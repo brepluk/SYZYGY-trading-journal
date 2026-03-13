@@ -12,8 +12,8 @@ const Wrapper = styled.main`
   }
 
   .dashboard-card {
-    background: var(--astra-card);
-    border: 1px solid var(--astra-border);
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     padding: 1.25rem;
     min-height: 5rem;
@@ -24,7 +24,7 @@ const Wrapper = styled.main`
 
   .dashboard-card-label {
     font-size: 0.8rem;
-    color: var(--astra-muted);
+    color: var(--text-secondary-color);
     text-transform: uppercase;
     letter-spacing: 0.05em;
     margin-bottom: 0.25rem;
@@ -33,19 +33,19 @@ const Wrapper = styled.main`
   .dashboard-card-value {
     font-size: 1.25rem;
     font-weight: 600;
-    color: var(--astra-text);
+    color: var(--text-color);
   }
 
   .dashboard-chart-section,
   .dashboard-calendar-section {
-    background: var(--astra-card);
-    border: 1px solid var(--astra-border);
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     padding: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--astra-muted);
+    color: var(--text-secondary-color);
     font-size: 0.9rem;
   }
 
