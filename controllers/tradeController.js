@@ -1,56 +1,81 @@
-import { nanoid } from "nanoid";
+import { prisma } from "../prisma/client.js";
+import { StatusCodes } from "http-status-codes";
 
-let trades = [
-  { id: nanoid(), ticker: "TSLA", side: "CALL" },
-  { id: nanoid(), ticker: "GOOGL", side: "PUT" },
-];
-
+// Get all trades
 export const getAllTrades = async (req, res) => {
-  res.status(200).json({ trades });
+  const trades = await prisma.trade.findMany();
+  res.status(StatusCodes.OK).json({ trades });
 };
 
+// Create a new trade
 export const createTrade = async (req, res) => {
-  const { ticker, side } = req.body;
-  if (!ticker || !side) {
-    return res.status(400).json({ message: "Ticker and side are required" });
-  }
-  const id = nanoid(10);
-  const trade = { id, ticker, side };
-  trades.push(trade);
-  res.status(201).json({ trade });
+  const {
+    ticker,
+    assetType,
+    side,
+    status,
+    entryDate,
+    exitDate,
+    entryPrice,
+    exitPrice,
+    contracts,
+    quantity,
+    strike,
+    expiration,
+    fees,
+    pnl,
+    pnlPercent,
+    thesis,
+    notes,
+    setupTag,
+    screenshotUrl,
+  } = req.body;
+  const trade = await prisma.trade.create({
+    data: {
+      ticker,
+      assetType,
+      side,
+      status,
+      entryDate: new Date(entryDate),
+      exitDate: exitDate ? new Date(exitDate) : null,
+      entryPrice,
+      exitPrice,
+      contracts,
+      quantity,
+      strike,
+      expiration: expiration ? new Date(expiration) : null,
+      fees,
+      pnl,
+      pnlPercent,
+      thesis,
+      notes,
+      setupTag,
+      screenshotUrl,
+    },
+  });
+  res.status(StatusCodes.CREATED).json({ trade });
 };
-
+// Get a single trade
 export const getSingleTrade = async (req, res) => {
-  const { id } = req.params;
-  const trade = trades.find((trade) => trade.id === id);
-  if (!trade) {
-    return res.status(404).json({ message: `no trade found with id ${id}` });
-  }
-  res.status(200).json({ trade });
+  const trade = await prisma.trade.findUnique({ where: { id: req.params.id } });
+  res.status(StatusCodes.OK).json({ trade });
 };
 
+// Update a trade
 export const updateTrade = async (req, res) => {
-  const { ticker, side } = req.body;
-  if (!ticker || !side) {
-    return res.status(400).json({ message: "Ticker and side are required" });
-  }
-  const { id } = req.params;
-  const trade = trades.find((trade) => trade.id === id);
-  if (!trade) {
-    return res.status(404).json({ message: `no trade found with id ${id}` });
-  }
-  trade.ticker = ticker;
-  trade.side = side;
-  res.status(200).json({ message: "Trade updated successfully", trade });
+  const updatedTrade = await prisma.trade.update({
+    where: { id: req.params.id },
+    data: req.body,
+  });
+  res
+    .status(StatusCodes.OK)
+    .json({ message: "Trade updated successfully", trade: updatedTrade });
 };
 
+// Delete a trade
 export const deleteTrade = async (req, res) => {
-  const { id } = req.params;
-  const trade = trades.find((trade) => trade.id === id);
-  if (!trade) {
-    return res.status(404).json({ message: `no trade found with id ${id}` });
-  }
-  const newTrades = trades.filter((trade) => trade.id !== id);
-  trades = newTrades;
-  res.status(200).json({ message: "Trade deleted successfully" });
+  const removedTrade = await prisma.trade.delete({ where: { id: req.params.id } });
+  res
+    .status(StatusCodes.OK)
+    .json({ message: "Trade deleted successfully", trade: removedTrade });
 };

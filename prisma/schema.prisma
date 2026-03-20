@@ -4,11 +4,59 @@ generator client {
 
 datasource db{
   provider = "postgresql"
-  url = env("DATABASE_URL")
-  directUrl =env("DIRECT_URL")
+}
+
+
+enum AssetType {
+  OPTION
+  STOCK
+  FOREX
+  FUTURES
+  CRYPTO
+  INDEX
+}
+
+enum TradeSide {
+  CALL
+  PUT
+  BUY
+  SELL
+}
+
+enum TradeStatus {
+  OPEN
+  CLOSED
 }
 
 model Trade {
-  id String @id 
-}
+  id            String      @id @default(cuid())
 
+  ticker        String
+  assetType     AssetType   @default(OPTION)
+  side          TradeSide
+  status        TradeStatus @default(CLOSED)
+
+  entryDate     DateTime
+  exitDate      DateTime?
+
+  entryPrice    Float
+  exitPrice     Float?
+
+  contracts     Int?
+  quantity      Float?
+
+  strike        Float?
+  expiration    DateTime?
+
+  fees          Float       @default(0)
+  pnl           Float?
+  pnlPercent    Float?
+
+  thesis        String?
+  notes         String?
+  setupTag      String?
+  screenshotUrl String?
+
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
