@@ -5,7 +5,19 @@ import express from "express";
 const app = express();
 
 import morgan from "morgan";
+import prismaClientPkg from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 
+const { PrismaClient } = prismaClientPkg;
+
+// Prisma 7 requires an explicit driver adapter/connection.
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  throw new Error("Missing DATABASE_URL in environment (.env)");
+}
+
+const adapter = new PrismaPg({ connectionString });
+const prisma = new PrismaClient({ adapter });
 // ROUTERS
 import tradeRouter from "./routes/tradeRouter.js";
 
@@ -37,6 +49,13 @@ app.use((err, req, res, next) => {
 
 const port = process.env.PORT || 5100;
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}...`);
-});
+try {
+  await prisma.$connect();
+
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}...`);
+  });
+} catch (error) {
+  console.log(error);
+  process.exit(1);
+}
