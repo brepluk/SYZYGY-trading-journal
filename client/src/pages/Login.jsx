@@ -1,46 +1,84 @@
-import { Link } from "react-router-dom";
+import {
+  Form,
+  Link,
+  redirect,
+  useNavigation,
+  useActionData,
+} from "react-router-dom";
 import { Logo, FormRow } from "../components";
 import Starfield from "../components/Starfield";
 import Wrapper from "../wrappers/RegisterAndLoginPage";
+import { toast } from "react-toastify";
+import customFetch from "../utils/customFetch";
+
+export const action = async ({ request }) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+  const errors = { message: "" };
+  if (data.password.length < 6) {
+    errors.message = "Password must be at least 6 characters long";
+    return errors;
+  }
+
+  try {
+    await customFetch.post("/auth/login", data);
+    toast.success("Logged in successfully");
+    return redirect("/dashboard");
+  } catch (error) {
+    toast.error(
+      error?.response?.data?.message ?? "Something went wrong. Try again.",
+    );
+    return null;
+  }
+};
 
 const Login = () => {
+  const errors = useActionData();
+  const navigation = useNavigation();
+  const isSubmitting = navigation.state === "submitting";
   return (
     <Wrapper>
-      <Starfield />
-      <nav className="nav">
-        <Logo className="logo" />
-        <div className="nav-actions">
-          <Link to="/" className="nav-link">
-            Home
-          </Link>
-          <Link to="/register" className="nav-link nav-link-primary">
-            Sign up
-          </Link>
-        </div>
-      </nav>
+      <Form method="post" className="form-page">
+        <Starfield />
+        <nav className="nav">
+          <Logo className="logo" />
+          <div className="nav-actions">
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+            <Link to="/register" className="nav-link nav-link-primary">
+              Sign up
+            </Link>
+          </div>
+        </nav>
 
-      <section className="form-section">
-        <div className="form-card">
-          <form className="form">
-            <h4>Login</h4>
-            <FormRow
-              type="email"
-              name="email"
-              defaultValue="foosh@gmail.com"
-            />
-            <FormRow type="password" name="password" defaultValue="123456" />
-            <button type="submit" className="btn btn-block">
-              login
-            </button>
-            <p className="member-text">
-              New here?
-              <Link to="/register" className="member-link">
-                Create an account
-              </Link>
-            </p>
-          </form>
-        </div>
-      </section>
+        <section className="form-section">
+          <div className="form-card">
+            <div className="form">
+              <h4>Login</h4>
+              <FormRow
+                type="email"
+                name="email"
+                defaultValue="foosh@gmail.com"
+              />
+              <FormRow type="password" name="password" defaultValue="123456" />
+              <button
+                type="submit"
+                className="btn btn-block"
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Submitting..." : "Login"}
+              </button>
+              <p className="member-text">
+                New here?
+                <Link to="/register" className="member-link">
+                  Create an account
+                </Link>
+              </p>
+            </div>
+          </div>
+        </section>
+      </Form>
     </Wrapper>
   );
 };

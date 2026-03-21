@@ -103,7 +103,9 @@ const Wrapper = styled.aside`
     z-index: 998;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.25s ease, visibility 0.25s ease;
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
   }
 
   .sidebar-container.show-sidebar {
@@ -167,7 +169,10 @@ const Wrapper = styled.aside`
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    transition:
+      color 0.15s ease,
+      background 0.15s ease,
+      border-color 0.15s ease;
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -196,7 +201,9 @@ const Wrapper = styled.aside`
     font-weight: 500;
     letter-spacing: var(--letter-spacing);
     text-transform: capitalize;
-    transition: color 0.15s ease, background 0.15s ease;
+    transition:
+      color 0.15s ease,
+      background 0.15s ease;
   }
 
   .nav-link:hover {
