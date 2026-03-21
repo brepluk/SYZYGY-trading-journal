@@ -1,5 +1,9 @@
 import { body, param, validationResult } from "express-validator";
-import { BadRequestError, NotFoundError } from "../errors/customErrors.js";
+import {
+  BadRequestError,
+  NotFoundError,
+  UnauthorizedError,
+} from "../errors/customErrors.js";
 import { ASSET_TYPE, TRADE_SIDE, TRADE_STATUS } from "../utils/constants.js";
 import { prisma } from "../prisma/client.js";
 
@@ -12,6 +16,13 @@ const withValidationErrors = (validateValues) => {
         const errorMessages = errors.array().map((error) => error.msg);
         if (errorMessages[0].startsWith("no trade")) {
           throw new NotFoundError(errorMessages);
+        }
+        if (
+          errorMessages[0].startsWith(
+            "You are not authorized to access this trade",
+          )
+        ) {
+          throw new UnauthorizedError(errorMessages);
         }
         throw new BadRequestError(errorMessages);
       }
@@ -92,13 +103,62 @@ export const validateUpdateTradeInput = withValidationErrors([
 ]);
 
 export const validateIdParam = withValidationErrors([
-  param("id").custom(async (value) => {
+  param("id").custom(async (value, { req }) => {
     // Prisma Trade IDs are CUIDs by schema default.
     const isValidCuid = /^c[a-z0-9]{24}$/.test(value);
     if (!isValidCuid) throw new BadRequestError("invalid trade id");
 
     const trade = await prisma.trade.findUnique({ where: { id: value } });
     if (!trade) throw new NotFoundError(`no trade with id : ${value}`);
+    const isOwner = trade.userId === req.user.userId;
+    if (!isOwner)
+      throw new UnauthorizedError(
+        "You are not authorized to access this trade",
+      );
   }),
 ]);
 
+export const validateRegisterInput = withValidationErrors([
+  body("name").trim().notEmpty().withMessage("name is required"),
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("invalid email")
+    .custom(async (value) => {
+      const user = await prisma.user.findUnique({ where: { email: value } });
+      if (user) throw new BadRequestError("email already in use");
+    }),
+  body("password")
+    .trim()
+    .notEmpty()
+    .withMessage("password is required")
+    .isLength({ min: 6 })
+    .withMessage("password must be at least 6 characters long"),
+]);
+
+export const validateLoginInput = withValidationErrors([
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("invalid email"),
+  body("password").trim().notEmpty().withMessage("password is required"),
+]);
+
+export const validateUpdateUserInput = withValidationErrors([
+  body("name").trim().notEmpty().withMessage("name is required"),
+  body("email")
+    .trim()
+    .notEmpty()
+    .withMessage("email is required")
+    .isEmail()
+    .withMessage("invalid email")
+    .custom(async (email, { req }) => {
+      const user = await prisma.user.findUnique({ where: { email } });
+      if (user && user.id.toString() !== req.user.userId)
+        throw new BadRequestError("email already in use");
+    }),
+]);

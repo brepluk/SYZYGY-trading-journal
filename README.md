@@ -149,3 +149,37 @@ SMALL SIDE BAR
 // `;
 
 // export default Wrapper;
+
+Here’s a practical workflow so schema, database, and Prisma Client stay aligned.
+When you change schema.prisma
+Create / update the database to match the schema
+Local dev (you’re iterating):
+npx prisma migrate dev --name describe_your_change
+That will:
+generate a new SQL migration under prisma/migrations/
+apply it to your dev database
+run prisma generate for you
+If you only want to sync DB without a migration file (quick experiments, not for shared/production history):
+npx prisma db push
+Still run prisma generate afterward if migrate didn’t run.
+Regenerate the client (if it didn’t run automatically)
+npx prisma generate
+Any time the schema changes, the generated @prisma/client must be rebuilt. migrate dev usually does this; if you only edited the file and didn’t migrate, run generate yourself.
+Restart the Node server
+The running process keeps the old client in memory until you restart (npm run dev again).
+Other environments / teammates
+They pull your git changes (including new migration folders).
+They run: npx prisma migrate deploy (applies pending migrations).
+CI/production: same — migrate deploy, not migrate dev.
+Mental model
+What you change What must update
+schema.prisma SQL migrations (or db push in a pinch)
+Database structure Applied migrations on that database
+Prisma Client API (prisma.user…) prisma generate
+Running app seeing new types/fields Restart server after generate
+Quick checklist
+After editing the schema:
+npx prisma migrate dev --name <meaningful_name> (preferred in dev)
+If you didn’t use migrate: npx prisma db push then npx prisma generate
+Restart npm run dev
+That’s the full loop so DB columns, migration history, and generated client all match your schema.

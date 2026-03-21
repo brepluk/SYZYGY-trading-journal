@@ -6,20 +6,30 @@ const app = express();
 
 import morgan from "morgan";
 import { prisma } from "./prisma/client.js";
+import cookieParser from "cookie-parser";
+
 // ROUTERS
 import tradeRouter from "./routes/tradeRouter.js";
+import authRouter from "./routes/authRouter.js";
+import userRouter from "./routes/userRouter.js";
+
+// MIDDLEWARE
 import errorHandlerMiddleware from "./middleware/errorHandlerMiddleware.js";
+import { authenticateUser } from "./middleware/authMiddleware.js";
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+app.use(cookieParser());
 app.use(express.json());
 
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
 
-app.use("/api/v1/trades", tradeRouter);
+app.use("/api/v1/trades", authenticateUser, tradeRouter);
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/users", authenticateUser, userRouter);
 
 app.all("/{*splat}", (req, res) => {
   res.status(404).json({ msg: "not found" });

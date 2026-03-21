@@ -2,10 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-datasource db{
+datasource db {
   provider = "postgresql"
 }
-
 
 enum AssetType {
   OPTION
@@ -29,34 +28,50 @@ enum TradeStatus {
 }
 
 model Trade {
-  id            String      @id @default(cuid())
+  id String @id @default(cuid())
 
-  ticker        String
-  assetType     AssetType   @default(OPTION)
-  side          TradeSide
-  status        TradeStatus @default(CLOSED)
+  ticker    String
+  assetType AssetType   @default(OPTION)
+  side      TradeSide
+  status    TradeStatus @default(CLOSED)
 
-  entryDate     DateTime
-  exitDate      DateTime?
+  entryDate DateTime
+  exitDate  DateTime?
 
-  entryPrice    Float
-  exitPrice     Float?
+  entryPrice Float
+  exitPrice  Float?
 
-  contracts     Int?
-  quantity      Float?
+  contracts Int?
+  quantity  Float?
 
-  strike        Float?
-  expiration    DateTime?
+  strike     Float?
+  expiration DateTime?
 
-  fees          Float       @default(0)
-  pnl           Float?
-  pnlPercent    Float?
+  fees       Float  @default(0)
+  pnl        Float?
+  pnlPercent Float?
 
   thesis        String?
   notes         String?
   setupTag      String?
   screenshotUrl String?
 
-  createdAt     DateTime    @default(now())
-  updatedAt     DateTime    @updatedAt
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id String @id @default(cuid())
+
+  name     String
+  email    String @unique
+  password String
+
+  trades Trade[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

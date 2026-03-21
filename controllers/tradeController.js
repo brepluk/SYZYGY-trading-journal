@@ -3,7 +3,9 @@ import { StatusCodes } from "http-status-codes";
 
 // Get all trades
 export const getAllTrades = async (req, res) => {
-  const trades = await prisma.trade.findMany();
+  const trades = await prisma.trade.findMany({
+    where: { userId: req.user.userId },
+  });
   res.status(StatusCodes.OK).json({ trades });
 };
 
@@ -32,6 +34,7 @@ export const createTrade = async (req, res) => {
   } = req.body;
   const trade = await prisma.trade.create({
     data: {
+      user: { connect: { id: req.user.userId } },
       ticker,
       assetType,
       side,
@@ -74,7 +77,9 @@ export const updateTrade = async (req, res) => {
 
 // Delete a trade
 export const deleteTrade = async (req, res) => {
-  const removedTrade = await prisma.trade.delete({ where: { id: req.params.id } });
+  const removedTrade = await prisma.trade.delete({
+    where: { id: req.params.id },
+  });
   res
     .status(StatusCodes.OK)
     .json({ message: "Trade deleted successfully", trade: removedTrade });
