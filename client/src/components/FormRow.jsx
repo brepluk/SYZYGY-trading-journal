@@ -5,6 +5,7 @@ const FormRow = ({
   value,
   handleChange,
   defaultValue,
+  step,
 }) => {
   const label = labelText || name;
   const isControlled = value !== undefined;
@@ -18,6 +19,7 @@ const FormRow = ({
         id={name}
         name={name}
         className="form-input"
+        {...(step !== undefined ? { step } : {})}
         {...(isControlled
           ? { value, onChange: handleChange }
           : defaultValue !== undefined

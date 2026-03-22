@@ -4,3 +4,8 @@ export { default as Starfield } from "./Starfield";
 export { default as Navbar } from "./Navbar";
 export { default as BigSidebar } from "./BigSidebar";
 export { default as SmallSidebar } from "./SmallSidebar";
+export { default as FormRowSelect } from "./FormRowSelect";
+export { default as TradesContainer } from "./TradesContainer";
+export { default as SearchContainer } from "./SearchContainer";
+export { default as TradeNotesEditor } from "./TradeNotesEditor";
+export { default as TradeTradingViewChart } from "./TradeTradingViewChart";

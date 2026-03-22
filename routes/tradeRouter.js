@@ -17,8 +17,8 @@ import {
 router.route("/").get(getAllTrades).post(validateCreateTradeInput, createTrade);
 router
   .route("/:id")
-  .get(validateIdParam, getSingleTrade)
-  .patch(validateIdParam, validateUpdateTradeInput, updateTrade)
-  .delete(validateIdParam, deleteTrade);
+  .get(...validateIdParam, getSingleTrade)
+  .patch(...validateIdParam, validateUpdateTradeInput, updateTrade)
+  .delete(...validateIdParam, deleteTrade);
 
 export default router;

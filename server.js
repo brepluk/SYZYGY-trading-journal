@@ -2,6 +2,8 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import path from "path";
+
 const app = express();
 
 import morgan from "morgan";
@@ -22,6 +24,11 @@ if (process.env.NODE_ENV === "development") {
 }
 app.use(cookieParser());
 app.use(express.json());
+
+app.use(
+  "/uploads",
+  express.static(path.join(process.cwd(), "uploads")),
+);
 
 app.get("/", (req, res) => {
   res.send("Hello World");

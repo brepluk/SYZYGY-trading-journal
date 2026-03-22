@@ -3,6 +3,12 @@ import HomeLayout from "./pages/HomeLayout";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
+import { action as addTradeAction } from "./pages/AddTrade";
+import { loader as allTradesLoader } from "./pages/AllTrades";
+import {
+  loader as tradeNotesLoader,
+  action as tradeNotesAction,
+} from "./pages/Notes";
 
 export const checkDefaultTheme = () => {
   const stored = localStorage.getItem("darkTheme");
@@ -12,6 +18,7 @@ export const checkDefaultTheme = () => {
 };
 
 checkDefaultTheme();
+
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import DashboardLayout from "./pages/DashboardLayout";
@@ -22,6 +29,8 @@ import Stats from "./pages/Stats";
 import AddTrade from "./pages/AddTrade";
 import AllTrades from "./pages/AllTrades";
 import Profile from "./pages/Profile";
+import EditTrade from "./pages/EditTrade";
+import Notes from "./pages/Notes";
 
 const router = createBrowserRouter([
   {
@@ -55,10 +64,22 @@ const router = createBrowserRouter([
           {
             path: "add-trade",
             element: <AddTrade />,
+            action: addTradeAction,
           },
           {
             path: "all-trades",
             element: <AllTrades />,
+            loader: allTradesLoader,
+          },
+          {
+            path: "edit-trade/:id",
+            element: <EditTrade />,
+          },
+          {
+            path: "trade/:id/notes",
+            element: <Notes />,
+            loader: tradeNotesLoader,
+            action: tradeNotesAction,
           },
           {
             path: "stats",

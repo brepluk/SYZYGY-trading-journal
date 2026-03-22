@@ -15,15 +15,13 @@ const Wrapper = styled.main`
     margin: 0 auto;
     border-bottom: 1px solid var(--border-color);
   }
-  .logo {
-    display: flex;
+  .logo.logo-wordmark,
+  .logo-wordmark {
+    display: inline-flex;
     align-items: center;
     color: var(--logo-color);
     text-decoration: none;
-  }
-  .logo svg {
-    height: 1.5rem;
-    width: auto;
+    font-size: 1.125rem;
     &:hover {
       color: var(--accent-color);
     }

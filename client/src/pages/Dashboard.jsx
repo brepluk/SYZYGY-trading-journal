@@ -13,7 +13,7 @@ const Dashboard = () => {
           <span className="dashboard-card-value">—</span>
         </div>
         <div className="dashboard-card">
-          <span className="dashboard-card-label">Avg win %</span>
+          <span className="dashboard-card-label">Avg win</span>
           <span className="dashboard-card-value">—</span>
         </div>
         <div className="dashboard-card">

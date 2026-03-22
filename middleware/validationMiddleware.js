@@ -100,6 +100,12 @@ export const validateUpdateTradeInput = withValidationErrors([
     .optional({ nullable: true })
     .isFloat()
     .withMessage("quantity must be a number"),
+  body("notes")
+    .optional({ nullable: true })
+    .isString()
+    .withMessage("notes must be text")
+    .isLength({ max: 100_000 })
+    .withMessage("notes are too long"),
 ]);
 
 export const validateIdParam = withValidationErrors([

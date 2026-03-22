@@ -6,7 +6,7 @@
 //   align-items: center;
 //   justify-content: center;
 //   box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
-//   background: var(--astra-surface);
+//   background: var(--syzygy-surface);
 
 //   .nav-center {
 //     display: flex;
@@ -25,7 +25,7 @@
 //     background: transparent;
 //     border: none;
 //     font-size: 1.75rem;
-//     color: var(--astra-text);
+//     color: var(--syzygy-text);
 //     cursor: pointer;
 //     display: flex;
 //     align-items: center;
@@ -33,13 +33,13 @@
 //     transition: color var(--transition);
 //   }
 //   .toggle-btn:hover {
-//     color: var(--astra-accent);
+//     color: var(--syzygy-accent);
 //   }
 
 //   .logo-text {
 //     font-size: 1.25rem;
 //     font-weight: 600;
-//     color: var(--astra-text);
+//     color: var(--syzygy-text);
 //     letter-spacing: var(--letter-spacing);
 //     margin: 0;
 //     text-transform: capitalize;
@@ -53,15 +53,15 @@
 
 //   .date-filter-label {
 //     font-size: 0.85rem;
-//     color: var(--astra-muted);
+//     color: var(--syzygy-muted);
 //   }
 
 //   .date-filter-select {
 //     padding: 0.35rem 0.75rem;
 //     border-radius: var(--border-radius);
-//     border: 1px solid var(--astra-border);
-//     background: var(--astra-card);
-//     color: var(--astra-text);
+//     border: 1px solid var(--syzygy-border);
+//     background: var(--syzygy-card);
+//     color: var(--syzygy-text);
 //     font-size: 0.9rem;
 //     min-width: 140px;
 //     cursor: pointer;
@@ -69,7 +69,7 @@
 
 //   .date-filter-select:focus {
 //     outline: none;
-//     border-color: var(--astra-accent);
+//     border-color: var(--syzygy-accent);
 //   }
 
 //   .btn-container {
@@ -82,18 +82,18 @@
 //   width: 2.25rem;
 //   height: 2.25rem;
 //   border-radius: 50%;
-//   background: var(--astra-card);
-//   border: 1px solid var(--astra-border);
+//   background: var(--syzygy-card);
+//   border: 1px solid var(--syzygy-border);
 //   display: flex;
 //   align-items: center;
 //   justify-content: center;
-//   color: var(--astra-muted);
+//   color: var(--syzygy-muted);
 //   text-decoration: none;
 //   transition: border-color var(--transition), color var(--transition);
 // }
 // .profile-link:hover {
-//   border-color: var(--astra-accent);
-//   color: var(--astra-accent);
+//   border-color: var(--syzygy-accent);
+//   color: var(--syzygy-accent);
 // }
 
 //   @media (min-width: 992px) {

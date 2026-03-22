@@ -1,52 +1,40 @@
 import { Link } from "react-router-dom";
 
 /**
- * Reusable Astra logo: links to home by default, inherits color via currentColor.
- * Use className to control size and color (e.g. from styled-components).
+ * Inline “SYZYGY” with subtle star-like pulse on each Y (shared with hero title).
+ * Pass aria-hidden on the nav logo (parent link has a label); omit on hero if h1 has aria-label.
  */
-export default function Logo({ to = "/", className, ...props }) {
+export function SyzygyWordmark({ className, ...props }) {
   return (
-    <Link to={to} className={className} aria-label="Astra home" {...props}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 120 32"
-        fill="none"
-        aria-hidden
-        style={{ display: "block", width: "auto" }}
-      >
-        <text
-          x="0"
-          y="24"
-          style={{
-            fontSize: 24,
-            fontWeight: 600,
-            letterSpacing: "0.02em",
-            fill: "currentColor",
-          }}
-        >
-          ✦
-        </text>
-        <text
-          x="28"
-          y="24"
-          style={{
-            fontSize: 24,
-            fontWeight: 600,
-            letterSpacing: "0.02em",
-            fill: "currentColor",
-          }}
-        >
-          Astra
-        </text>
-      </svg>
-    </Link>
+    <span
+      className={className ? `wordmark-syzygy ${className}` : "wordmark-syzygy"}
+      {...props}
+    >
+      <span>S</span>
+      <span className="syzygy-y">Y</span>
+      <span>Z</span>
+      <span className="syzygy-y">Y</span>
+      <span>G</span>
+      <span className="syzygy-y">Y</span>
+    </span>
   );
 }
 
-// import logo from "../assets/logo.svg"
-
-// const Logo = () => {
-//   return <img src={logo} alt="Astra" className="logo" />;
-// };
-
-// export default Logo;
+/**
+ * Syzygy logo: ✦ + wordmark, links home by default, inherits color via currentColor.
+ */
+export default function Logo({ to = "/", className, ...props }) {
+  return (
+    <Link
+      to={to}
+      className={className ? `logo-wordmark ${className}` : "logo-wordmark"}
+      aria-label="Syzygy home"
+      {...props}
+    >
+      <span className="logo-wordmark-icon" aria-hidden>
+        ✦
+      </span>
+      <SyzygyWordmark aria-hidden />
+    </Link>
+  );
+}

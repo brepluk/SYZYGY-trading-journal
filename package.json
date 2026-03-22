@@ -1,7 +1,7 @@
 {
-  "name": "astra",
+  "name": "syzygy-journal",
   "version": "1.0.0",
-  "description": "Astra is a trading journal app that allows you to track your trades and analyze your performance.",
+  "description": "SYZYGY is a trading journal app that helps you track trades and analyze performance.",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -19,6 +19,7 @@
     "bcryptjs": "^3.0.3",
     "concurrently": "^9.2.1",
     "cookie-parser": "^1.4.7",
+    "dayjs": "^1.11.20",
     "express": "^5.2.1",
     "express-validator": "^7.3.1",
     "http-status-codes": "^2.3.0",

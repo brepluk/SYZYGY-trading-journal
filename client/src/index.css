@@ -64,13 +64,13 @@ html {
     0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   --shadow-4:
     0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  --shadow-astra: 0 20px 50px rgba(0, 0, 0, 0.4);
+  --shadow-syzygy: 0 20px 50px rgba(0, 0, 0, 0.4);
 
-  /* DARK MODE (Astra) – used when .dark-theme is on body */
-  --dark-mode-bg-color: var(--astra-bg);
-  --dark-mode-text-color: var(--astra-text);
-  --dark-mode-bg-secondary-color: var(--astra-surface);
-  --dark-mode-text-secondary-color: var(--astra-muted);
+  /* DARK MODE (Syzygy) – used when .dark-theme is on body */
+  --dark-mode-bg-color: var(--syzygy-bg);
+  --dark-mode-text-color: var(--syzygy-text);
+  --dark-mode-bg-secondary-color: var(--syzygy-surface);
+  --dark-mode-text-secondary-color: var(--syzygy-muted);
 
   /* Light theme (default) – all white */
   --background-color: var(--white);
@@ -97,23 +97,89 @@ html {
   --background-color: var(--dark-mode-bg-color);
   --text-secondary-color: var(--dark-mode-text-secondary-color);
   --background-secondary-color: var(--dark-mode-bg-secondary-color);
-  --border-color: var(--astra-border);
-  --logo-color: var(--astra-text);
-  --card-background: var(--astra-card);
-  --accent-color: var(--astra-accent);
+  --border-color: var(--syzygy-border);
+  --logo-color: var(--syzygy-text);
+  --card-background: var(--syzygy-card);
+  --accent-color: var(--syzygy-accent);
   --error-404-neon-green: var(--error-404-bull);
   --error-404-neon-red: var(--error-404-bear);
-  --theme-option-active-bg: var(--astra-card);
-  --btn-bg: var(--astra-text);
-  --btn-color: var(--astra-text-inverse);
+  --theme-option-active-bg: var(--syzygy-card);
+  --btn-bg: var(--syzygy-text);
+  --btn-color: var(--syzygy-text-inverse);
   --star-color: rgba(255, 255, 255, 0.9);
 }
 
 /* Logo: dark in light mode, light in dark mode */
 .logo,
 .logo a,
+.logo-wordmark,
 .sidebar-logo a {
   color: var(--logo-color) !important;
+}
+
+/* SYZYGY wordmark (replaces SVG text logo) */
+.logo-wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.125rem;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  transition: color var(--transition);
+}
+.logo-wordmark:hover {
+  color: var(--accent-color) !important;
+}
+.logo-wordmark-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.wordmark-syzygy {
+  display: inline-flex;
+  align-items: baseline;
+}
+.wordmark-syzygy > span {
+  display: inline-block;
+}
+
+/* Star-like pulse on each Y (staggered) */
+@keyframes syzygy-y-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    text-shadow:
+      0 0 6px color-mix(in srgb, var(--logo-color) 35%, transparent),
+      0 0 12px color-mix(in srgb, var(--accent-color) 25%, transparent);
+  }
+  50% {
+    opacity: 0.93;
+    text-shadow:
+      0 0 12px color-mix(in srgb, var(--logo-color) 55%, transparent),
+      0 0 22px color-mix(in srgb, var(--accent-color) 35%, transparent);
+  }
+}
+
+.syzygy-y {
+  animation: syzygy-y-pulse 2.75s ease-in-out infinite;
+}
+.wordmark-syzygy .syzygy-y:nth-child(2) {
+  animation-delay: 0s;
+}
+.wordmark-syzygy .syzygy-y:nth-child(4) {
+  animation-delay: 0.92s;
+}
+.wordmark-syzygy .syzygy-y:nth-child(6) {
+  animation-delay: 1.84s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .syzygy-y {
+    animation: none;
+    text-shadow: none;
+  }
 }
 
 body {
@@ -135,7 +201,7 @@ body {
   line-height: 1;
 }
 
-/* React-icons and other SVGs inherit theme color so they match Astra */
+/* React-icons and other SVGs inherit theme color so they match Syzygy */
 svg {
   color: currentColor;
 }
@@ -245,7 +311,7 @@ ul {
   display: block;
   object-fit: cover;
 }
-/* buttons – Astra theme */
+/* buttons – Syzygy theme */
 
 .btn {
   cursor: pointer;

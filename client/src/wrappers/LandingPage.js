@@ -16,18 +16,16 @@ const Wrapper = styled.main`
     border-bottom: 1px solid var(--border-color);
   }
 
-  .logo {
-    display: flex;
+  .logo.logo-wordmark,
+  .logo-wordmark {
+    display: inline-flex;
     align-items: center;
     color: var(--logo-color);
     text-decoration: none;
+    font-size: 1.125rem;
     &:hover {
       color: var(--accent-color);
     }
-  }
-  .logo svg {
-    height: 1.5rem;
-    width: auto;
   }
   .nav-actions {
     display: flex;
@@ -41,7 +39,9 @@ const Wrapper = styled.main`
     padding: 0.5rem 1rem;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
-    transition: color var(--transition), border-color var(--transition),
+    transition:
+      color var(--transition),
+      border-color var(--transition),
       background var(--transition);
     &:hover {
       color: var(--text-color);
@@ -58,7 +58,9 @@ const Wrapper = styled.main`
     padding: 0.5rem 1rem;
     border: 1px solid var(--btn-bg);
     border-radius: var(--border-radius-lg);
-    transition: color var(--transition), background var(--transition),
+    transition:
+      color var(--transition),
+      background var(--transition),
       border-color var(--transition);
     &:hover {
       color: var(--btn-color);
@@ -79,23 +81,112 @@ const Wrapper = styled.main`
     text-align: center;
   }
   .about-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.35rem;
     color: var(--text-color);
+    margin-bottom: 0.85rem;
+    line-height: 1.1;
+  }
+  .about-byline {
+    font-size: clamp(0.78rem, 1.6vw, 0.92rem);
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    color: var(--text-secondary-color);
+  }
+  .about-byline-link {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid
+      color-mix(in srgb, var(--text-secondary-color) 35%, transparent);
+    transition:
+      color var(--transition),
+      border-color var(--transition);
+  }
+  .about-byline-link:hover {
+    color: var(--accent-color);
+    border-bottom-color: color-mix(
+      in srgb,
+      var(--accent-color) 50%,
+      transparent
+    );
+  }
+  .about-title .wordmark-syzygy--hero {
     font-size: clamp(2rem, 4vw, 3rem);
     font-weight: 600;
-    letter-spacing: var(--letter-spacing);
-    margin-bottom: 1rem;
+    letter-spacing: 0.14em;
+    color: var(--text-color);
   }
-  .about-sub {
+  .about-title .wordmark-syzygy--hero .syzygy-y {
+    animation-name: syzygy-y-pulse-hero;
+  }
+  @keyframes syzygy-y-pulse-hero {
+    0%,
+    100% {
+      opacity: 1;
+      text-shadow:
+        0 0 10px color-mix(in srgb, var(--text-color) 45%, transparent),
+        0 0 24px color-mix(in srgb, var(--accent-color) 35%, transparent);
+    }
+    50% {
+      opacity: 0.9;
+      text-shadow:
+        0 0 18px color-mix(in srgb, var(--text-color) 65%, transparent),
+        0 0 36px color-mix(in srgb, var(--accent-color) 45%, transparent);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .about-title .wordmark-syzygy--hero .syzygy-y {
+      animation: none;
+      text-shadow: none;
+    }
+  }
+  .about-pronounce {
     color: var(--text-secondary-color);
-    font-size: 0.9rem;
-    margin-bottom: 1.5rem;
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    line-height: 1.55;
+    max-width: 580px;
+    margin: 0 auto 1.75rem;
+  }
+  .about-phonetic {
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.04em;
+    color: var(--accent-color);
+  }
+  .about-emdash {
+    opacity: 0.9;
+  }
+  .about-celestial-tag {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--text-secondary-color);
+  }
+  .about-lede {
+    color: var(--text-color);
+    font-size: clamp(1rem, 2.2vw, 1.15rem);
+    line-height: 1.55;
+    font-weight: 500;
+    max-width: 560px;
+    margin: 0 auto 1.75rem;
   }
   .about-body {
     color: var(--accent-color);
     font-size: 1.05rem;
-    line-height: 1.7;
-    max-width: 560px;
+    line-height: 1.8;
+    max-width: 640px;
     margin: 0 auto;
+  }
+  .about-body-emphasis {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--text-color);
+  }
+  .about-body-strong {
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--text-color);
   }
 
   .tools-title {
@@ -116,7 +207,9 @@ const Wrapper = styled.main`
     border: 1px solid var(--border-color);
     border-radius: 10px;
     padding: 1.5rem;
-    transition: border-color var(--transition), box-shadow var(--transition);
+    transition:
+      border-color var(--transition),
+      box-shadow var(--transition);
     &:hover {
       border-color: var(--accent-color);
       box-shadow: var(--shadow-3);
@@ -176,7 +269,9 @@ const Wrapper = styled.main`
     justify-content: center;
     opacity: 0;
     transform: scale(0.98);
-    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s ease;
     pointer-events: none;
   }
   .carousel-slide.active {
@@ -209,7 +304,9 @@ const Wrapper = styled.main`
     padding: 0;
     background: var(--text-secondary-color);
     opacity: 0.5;
-    transition: opacity var(--transition), background var(--transition),
+    transition:
+      opacity var(--transition),
+      background var(--transition),
       transform var(--transition);
   }
   .carousel-dot:hover {
@@ -235,7 +332,9 @@ const Wrapper = styled.main`
     align-items: center;
     justify-content: center;
     font-size: 1.25rem;
-    transition: color var(--transition), border-color var(--transition),
+    transition:
+      color var(--transition),
+      border-color var(--transition),
       background var(--transition);
     z-index: 2;
     &:hover {

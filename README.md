@@ -67,8 +67,8 @@ SMALL SIDE BAR
 
 // @media (min-width: 992px) {
 // display: block;
-// background: var(--astra-surface);
-// border-right: 1px solid var(--astra-border);
+// background: var(--syzygy-surface);
+// border-right: 1px solid var(--syzygy-border);
 // min-height: 100vh;
 // position: sticky;
 // top: 0;
@@ -87,7 +87,7 @@ SMALL SIDE BAR
 // }
 
 // .sidebar-logo a {
-// color: var(--astra-text);
+// color: var(--syzygy-text);
 // }
 
 // .sidebar-logo svg {
@@ -111,19 +111,19 @@ SMALL SIDE BAR
 // width: 2.75rem;
 // height: 2.75rem;
 // border-radius: var(--border-radius-lg);
-// color: var(--astra-muted);
+// color: var(--syzygy-muted);
 // text-decoration: none;
 // transition: color 0.15s ease, background 0.15s ease;
 // }
 
 // .sidebar-link:hover {
-// color: var(--astra-text);
-// background: var(--astra-card);
+// color: var(--syzygy-text);
+// background: var(--syzygy-card);
 // }
 
 // .sidebar-link.active {
-// color: var(--astra-text);
-// background: var(--astra-card);
+// color: var(--syzygy-text);
+// background: var(--syzygy-card);
 // }
 
 // .sidebar-expand {
@@ -133,18 +133,18 @@ SMALL SIDE BAR
 // cursor: pointer;
 // margin-top: auto;
 // padding-top: 1rem;
-// border-top: 1px solid var(--astra-border);
+// border-top: 1px solid var(--syzygy-border);
 // display: flex;
 // align-items: center;
 // justify-content: center;
 // border-radius: var(--border-radius-lg);
-// color: var(--astra-muted);
+// color: var(--syzygy-muted);
 // transition: color 0.15s ease, background 0.15s ease;
 // }
 
 // .sidebar-expand:hover {
-// color: var(--astra-text);
-// background: var(--astra-card);
+// color: var(--syzygy-text);
+// background: var(--syzygy-card);
 // }
 // `;
 
@@ -183,3 +183,258 @@ npx prisma migrate dev --name <meaningful_name> (preferred in dev)
 If you didn’t use migrate: npx prisma db push then npx prisma generate
 Restart npm run dev
 That’s the full loop so DB columns, migration history, and generated client all match your schema.
+
+THINGS TO FIX
+
+- transparent grey on navbar & small sidebar
+- small sidebar bar on small screen doesn't register dark and light mode
+
+ADD TRADE
+
+import { useMemo, useState } from "react";
+import { Form, redirect, useOutletContext } from "react-router-dom";
+import { toast } from "react-toastify";
+import { FormRow, FormRowSelect, SubmitBtn } from "../components";
+import Wrapper from "../wrappers/AddTrade";
+import customFetch from "../utils/customFetch";
+import { ASSET_TYPE, TRADE_SIDE, TRADE_STATUS } from "../utils/constants";
+
+function defaultLocalDateTime() {
+const d = new Date();
+d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+return d.toISOString().slice(0, 16);
+}
+
+function defaultExpirationDate() {
+const d = new Date();
+d.setDate(d.getDate() + 30);
+return d.toISOString().slice(0, 10);
+}
+
+const isOptionAsset = (assetType) => assetType === ASSET_TYPE.OPTION;
+
+const sidesForAsset = (assetType) =>
+isOptionAsset(assetType)
+? [TRADE_SIDE.CALL, TRADE_SIDE.PUT]
+: [TRADE_SIDE.BUY, TRADE_SIDE.SELL];
+
+const ASSET_HINTS = {
+[ASSET_TYPE.OPTION]:
+"Options: use strike, expiration, and contract count. Side is call or put.",
+[ASSET_TYPE.STOCK]:
+"Equities: size the trade with share quantity. Side is buy or sell.",
+[ASSET_TYPE.FOREX]:
+"FX: use quantity for lots or units; add pip context in your journal later.",
+[ASSET_TYPE.FUTURES]:
+"Futures: quantity is contracts; tick value context goes in your journal later.",
+[ASSET_TYPE.CRYPTO]:
+"Crypto: quantity is coin size; fees often matter for net P&L.",
+[ASSET_TYPE.INDEX]:
+"Indices: quantity may be contracts or a notional size, depending on your broker.",
+};
+
+export const action = async ({ request }) => {
+const formData = await request.formData();
+const data = Object.fromEntries(formData);
+
+if (data.entryDate) {
+data.entryDate = new Date(data.entryDate).toISOString();
+}
+if (data.exitDate) {
+data.exitDate = new Date(data.exitDate).toISOString();
+} else {
+delete data.exitDate;
+}
+if (data.expiration) {
+data.expiration = new Date(data.expiration).toISOString();
+} else {
+delete data.expiration;
+}
+
+const numericKeys = [
+"entryPrice",
+"exitPrice",
+"contracts",
+"quantity",
+"strike",
+"fees",
+"pnl",
+"pnlPercent",
+];
+for (const key of numericKeys) {
+if (data[key] === "" || data[key] === undefined) {
+delete data[key];
+} else {
+data[key] = Number(data[key]);
+}
+}
+if (data.contracts !== undefined) {
+data.contracts = Math.round(Number(data.contracts));
+}
+
+if (data.assetType === ASSET_TYPE.OPTION) {
+delete data.quantity;
+} else {
+delete data.strike;
+delete data.expiration;
+delete data.contracts;
+}
+
+if (data.status === TRADE_STATUS.OPEN) {
+delete data.exitDate;
+delete data.exitPrice;
+}
+
+try {
+const { data: res } = await customFetch.post("/trades", data);
+const id = res?.trade?.id;
+toast.success("Trade logged successfully");
+if (id) {
+return redirect(`/dashboard/all-trades/${id}`);
+}
+return redirect("/dashboard/all-trades");
+} catch (error) {
+const msg = error?.response?.data?.message;
+toast.error(
+Array.isArray(msg) ? msg.join(" ") : msg ?? "Something went wrong",
+);
+return null;
+}
+};
+
+const AddTrade = () => {
+const { user } = useOutletContext();
+const [assetType, setAssetType] = useState(ASSET_TYPE.STOCK);
+const [status, setStatus] = useState(TRADE_STATUS.OPEN);
+
+const sideList = useMemo(() => sidesForAsset(assetType), [assetType]);
+const defaultSide = sideList[0];
+
+const hint =
+ASSET_HINTS[assetType] ??
+"Fill in execution details; optional fields can stay blank.";
+
+return (
+<Wrapper>
+<Form method="post" className="form">
+<h4 className="form-title">add trade</h4>
+<p className="form-lead">
+Log a fill for your journal
+{user?.name ? ` — ${user.name}` : ""}.
+</p>
+<div className="form-center">
+<FormRow type="text" name="ticker" labelText="ticker / pair" />
+<FormRowSelect
+labelText="asset class"
+name="assetType"
+value={assetType}
+onChange={(e) => setAssetType(e.target.value)}
+list={Object.values(ASSET_TYPE)}
+/>
+<p className="form-asset-hint">{hint}</p>
+
+          <p className="form-section-heading">Execution</p>
+          <FormRowSelect
+            key={`side-${assetType}`}
+            labelText="side"
+            name="side"
+            defaultValue={defaultSide}
+            list={sideList}
+          />
+          {isOptionAsset(assetType) ? (
+            <>
+              <FormRow
+                type="number"
+                name="strike"
+                labelText="strike"
+                step="any"
+                required
+              />
+              <FormRow
+                type="date"
+                name="expiration"
+                labelText="expiration"
+                defaultValue={defaultExpirationDate()}
+                required
+              />
+              <FormRow
+                type="number"
+                name="contracts"
+                labelText="contracts"
+                step="1"
+                min="1"
+                defaultValue="1"
+                required
+              />
+            </>
+          ) : (
+            <FormRow
+              type="number"
+              name="quantity"
+              labelText="quantity (shares / lots / coins)"
+              step="any"
+              min="0"
+              required
+            />
+          )}
+
+          <FormRow
+            type="datetime-local"
+            name="entryDate"
+            labelText="entry time"
+            defaultValue={defaultLocalDateTime()}
+            required
+          />
+          <FormRow
+            type="number"
+            name="entryPrice"
+            labelText="entry price"
+            step="any"
+            required
+          />
+
+          <div className="form-divider" />
+          <p className="form-section-heading">Position</p>
+          <FormRowSelect
+            labelText="status"
+            name="status"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+            list={Object.values(TRADE_STATUS)}
+          />
+          {status === TRADE_STATUS.CLOSED && (
+            <>
+              <FormRow
+                type="datetime-local"
+                name="exitDate"
+                labelText="exit time"
+                required={false}
+              />
+              <FormRow
+                type="number"
+                name="exitPrice"
+                labelText="exit price"
+                step="any"
+                required={false}
+              />
+            </>
+          )}
+
+          <FormRow
+            type="number"
+            name="fees"
+            labelText="fees (commissions)"
+            step="any"
+            defaultValue="0"
+            required={false}
+          />
+
+          <SubmitBtn formBtn />
+        </div>
+      </Form>
+    </Wrapper>
+
+);
+};
+
+export default AddTrade;

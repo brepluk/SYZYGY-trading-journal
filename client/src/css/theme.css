@@ -1,21 +1,21 @@
 /**
- * Astra theme – cosmic dark palette.
- * Use these variables in styled-components: var(--astra-bg), etc.
+ * Syzygy theme – cosmic dark palette.
+ * Use these variables in styled-components: var(--syzygy-bg), etc.
  * Import this file from index.css so they're available globally.
  */
 :root {
-  /* Astra / cosmic theme */
-  --astra-bg: #0f0f12;
-  --astra-surface: #1a1a1f;
-  --astra-card: #222228;
-  --astra-border: #2d2d35;
-  --astra-text: #e8e8ec;
-  --astra-text-inverse: #0f0f12;
-  --astra-muted: #8a8a94;
-  --astra-accent: #a0a0b0;
-  --astra-white: #ffffff;
+  /* Syzygy / cosmic theme */
+  --syzygy-bg: #0f0f12;
+  --syzygy-surface: #1a1a1f;
+  --syzygy-card: #222228;
+  --syzygy-border: #2d2d35;
+  --syzygy-text: #e8e8ec;
+  --syzygy-text-inverse: #0f0f12;
+  --syzygy-muted: #8a8a94;
+  --syzygy-accent: #a0a0b0;
+  --syzygy-white: #ffffff;
 
-  /* Semantic aliases set in index.css (:root = light, .dark-theme = Astra) */
+  /* Semantic aliases set in index.css (:root = light, .dark-theme = Syzygy) */
 
   /* 404 error graphic – candlestick theme (dark) */
   --error-404-bear: #ef1c24;

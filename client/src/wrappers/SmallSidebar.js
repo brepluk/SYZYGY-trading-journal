@@ -5,8 +5,8 @@
 
 //   @media (min-width: 992px) {
 //     display: block;
-//     background: var(--astra-surface);
-//     border-right: 1px solid var(--astra-border);
+//     background: var(--syzygy-surface);
+//     border-right: 1px solid var(--syzygy-border);
 //     min-height: 100vh;
 //     position: sticky;
 //     top: 0;
@@ -25,7 +25,7 @@
 // }
 
 // .sidebar-logo a {
-//   color: var(--astra-text);
+//   color: var(--syzygy-text);
 // }
 
 // .sidebar-logo svg {
@@ -49,19 +49,19 @@
 //     width: 2.75rem;
 //     height: 2.75rem;
 //     border-radius: var(--border-radius-lg);
-//     color: var(--astra-muted);
+//     color: var(--syzygy-muted);
 //     text-decoration: none;
 //     transition: color 0.15s ease, background 0.15s ease;
 //   }
 
 //   .sidebar-link:hover {
-//     color: var(--astra-text);
-//     background: var(--astra-card);
+//     color: var(--syzygy-text);
+//     background: var(--syzygy-card);
 //   }
 
 //   .sidebar-link.active {
-//     color: var(--astra-text);
-//     background: var(--astra-card);
+//     color: var(--syzygy-text);
+//     background: var(--syzygy-card);
 //   }
 
 //   .sidebar-expand {
@@ -71,18 +71,18 @@
 //     cursor: pointer;
 //     margin-top: auto;
 //     padding-top: 1rem;
-//     border-top: 1px solid var(--astra-border);
+//     border-top: 1px solid var(--syzygy-border);
 //     display: flex;
 //     align-items: center;
 //     justify-content: center;
 //     border-radius: var(--border-radius-lg);
-//     color: var(--astra-muted);
+//     color: var(--syzygy-muted);
 //     transition: color 0.15s ease, background 0.15s ease;
 //   }
 
 //   .sidebar-expand:hover {
-//     color: var(--astra-text);
-//     background: var(--astra-card);
+//     color: var(--syzygy-text);
+//     background: var(--syzygy-card);
 //   }
 // `;
 
@@ -113,7 +113,7 @@ const Wrapper = styled.aside`
     visibility: visible;
   }
 
-  /* Panel – half screen width, slides in from left */
+  /* Panel – half screen width, slides in from left (semantic vars = same as BigSidebar / theme toggle) */
   .content {
     position: fixed;
     top: 0;
@@ -122,8 +122,8 @@ const Wrapper = styled.aside`
     width: 50%;
     min-width: 260px;
     max-width: 320px;
-    background: var(--astra-surface);
-    border-right: 1px solid var(--astra-border);
+    background: var(--background-secondary-color);
+    border-right: 1px solid var(--border-color);
     z-index: 999;
     padding: 3.25rem 1rem 1.25rem;
     display: flex;
@@ -144,15 +144,13 @@ const Wrapper = styled.aside`
   }
 
   .sidebar-logo a {
-    color: var(--astra-text);
+    color: var(--logo-color);
   }
 
-  .sidebar-logo svg {
-    height: 1.75rem;
-    width: auto;
+  .sidebar-logo .logo-wordmark {
+    font-size: 1.05rem;
   }
 
-  /* Astra-themed close button */
   .close-btn {
     position: absolute;
     top: 1rem;
@@ -160,10 +158,10 @@ const Wrapper = styled.aside`
     width: 2.5rem;
     height: 2.5rem;
     padding: 0;
-    border: 1px solid var(--astra-border);
+    border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
-    background: var(--astra-card);
-    color: var(--astra-muted);
+    background: var(--card-background);
+    color: var(--text-secondary-color);
     font-size: 1.15rem;
     cursor: pointer;
     display: flex;
@@ -177,9 +175,9 @@ const Wrapper = styled.aside`
   }
 
   .close-btn:hover {
-    color: var(--astra-text);
-    background: var(--astra-accent);
-    border-color: var(--astra-accent);
+    color: var(--text-color);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
   }
 
   .nav-links {
@@ -195,7 +193,7 @@ const Wrapper = styled.aside`
     gap: 0.75rem;
     padding: 0.75rem 1rem;
     border-radius: var(--border-radius-lg);
-    color: var(--astra-muted);
+    color: var(--text-secondary-color);
     text-decoration: none;
     font-size: 0.95rem;
     font-weight: 500;
@@ -207,13 +205,13 @@ const Wrapper = styled.aside`
   }
 
   .nav-link:hover {
-    color: var(--astra-text);
-    background: var(--astra-card);
+    color: var(--text-color);
+    background: var(--card-background);
   }
 
   .nav-link.active {
-    color: var(--astra-text);
-    background: var(--astra-card);
+    color: var(--text-color);
+    background: var(--card-background);
   }
 
   .nav-link span {

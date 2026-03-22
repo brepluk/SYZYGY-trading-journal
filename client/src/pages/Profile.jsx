@@ -14,7 +14,7 @@ const Profile = () => {
 
       <div className="settings-card">
         <h2>Appearance</h2>
-        <p className="text-small">Choose how FXTech Journal looks.</p>
+        <p className="text-small">Choose how SYZYGY looks.</p>
         <ThemeToggle />
       </div>
 

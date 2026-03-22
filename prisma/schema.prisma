@@ -54,7 +54,7 @@ model Trade {
   thesis        String?
   notes         String?
   setupTag      String?
-  screenshotUrl String?
+  screenshots   String[] @default([])
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
