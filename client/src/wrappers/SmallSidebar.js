@@ -1,93 +1,3 @@
-// import styled from "styled-components";
-
-// const Wrapper = styled.aside`
-//   display: none;
-
-//   @media (min-width: 992px) {
-//     display: block;
-//     background: var(--syzygy-surface);
-//     border-right: 1px solid var(--syzygy-border);
-//     min-height: 100vh;
-//     position: sticky;
-//     top: 0;
-//   }
-
-//   .sidebar-inner {
-//     padding: 1rem 0.5rem;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     height: 100%;
-//   }
-
-// .sidebar-logo {
-//   margin-bottom: 1.5rem;
-// }
-
-// .sidebar-logo a {
-//   color: var(--syzygy-text);
-// }
-
-// .sidebar-logo svg {
-//   height: 1.75rem;
-//   width: auto;
-// }
-
-//   .sidebar-nav {
-//     display: flex;
-//     flex-direction: column;
-//     gap: 0.25rem;
-//     flex: 1;
-//     width: 100%;
-//     align-items: center;
-//   }
-
-//   .sidebar-link {
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     width: 2.75rem;
-//     height: 2.75rem;
-//     border-radius: var(--border-radius-lg);
-//     color: var(--syzygy-muted);
-//     text-decoration: none;
-//     transition: color 0.15s ease, background 0.15s ease;
-//   }
-
-//   .sidebar-link:hover {
-//     color: var(--syzygy-text);
-//     background: var(--syzygy-card);
-//   }
-
-//   .sidebar-link.active {
-//     color: var(--syzygy-text);
-//     background: var(--syzygy-card);
-//   }
-
-//   .sidebar-expand {
-//     width: 100%;
-//     border: none;
-//     background: transparent;
-//     cursor: pointer;
-//     margin-top: auto;
-//     padding-top: 1rem;
-//     border-top: 1px solid var(--syzygy-border);
-//     display: flex;
-//     align-items: center;
-//     justify-content: center;
-//     border-radius: var(--border-radius-lg);
-//     color: var(--syzygy-muted);
-//     transition: color 0.15s ease, background 0.15s ease;
-//   }
-
-//   .sidebar-expand:hover {
-//     color: var(--syzygy-text);
-//     background: var(--syzygy-card);
-//   }
-// `;
-
-// export default Wrapper;
-
 import styled from "styled-components";
 
 const Wrapper = styled.aside`
@@ -219,6 +129,41 @@ const Wrapper = styled.aside`
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* —— Very small phones —— */
+  @media (max-width: 28rem) {
+    .content {
+      width: 82%;
+      min-width: 0;
+      max-width: none;
+      padding: 2.75rem 0.85rem 1.05rem;
+    }
+
+    .sidebar-logo {
+      margin-bottom: 1rem;
+    }
+
+    .sidebar-logo .logo-wordmark {
+      font-size: 0.95rem;
+    }
+
+    .close-btn {
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.05rem;
+    }
+
+    .nav-link {
+      padding: 0.65rem 0.85rem;
+      font-size: 0.92rem;
+    }
+
+    .nav-link span {
+      font-size: 1.05rem;
+    }
   }
 `;
 export default Wrapper;

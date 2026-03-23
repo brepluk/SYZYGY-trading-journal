@@ -12,12 +12,11 @@ export const getCurrentUser = async (req, res) => {
 };
 
 export const updateUser = async (req, res) => {
-  const obj = { ...req.body };
-  delete obj.password;
+  const newUser = { ...req.body };
+  delete newUser.password;
   const updatedUser = await prisma.user.update({
     where: { id: req.user.userId },
-    data: obj,
+    data: newUser,
   });
-
   res.status(StatusCodes.OK).json({ message: "User updated successfully" });
 };

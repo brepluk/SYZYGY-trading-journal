@@ -1,3 +1,61 @@
+THINGS TO FIX
+
+- transparent grey on navbar & small sidebar
+- small sidebar bar on small screen doesn't register dark and light mode
+- landing page wording layout + text size on small screen
+- password update
+- figure out toast error
+- notes pictures are not saved in the screenshot schema, figure out if thats ok to keep it in notes or remove screenshot schema
+- open options:
+- closed options:
+- fix section lables / path route
+
+IF you upload one image.
+Then you use that same exact image URL in 2 different notes.
+If you delete it from Note A and save, backend may delete it from Cloudinary.
+Then Note B’s image could break (because the file is gone).
+That is called a “shared image” problem.
+In your app right now
+This is usually not a big issue, because most people upload separate images per note.
+So your current setup is still good for normal use.
+Easy rule
+If an image is only used in one note -> perfect, delete logic is correct.
+If same image URL reused in multiple notes -> could delete too early.
+If you want, I can add protection so it only deletes an image if no other trade note is using that URL.
+
+---
+
+Great question. For password changes, treat it as a separate secure flow from profile updates (name/email).
+Recommended approach
+Keep /users/update-user for non-sensitive fields only (name, email).
+Add a new protected endpoint like PATCH /api/v1/users/update-password.
+Require:
+currentPassword
+newPassword
+confirmNewPassword (or validate match on frontend + backend)
+Backend flow (important)
+Get logged-in user from req.user.userId.
+Load their stored hashed password from DB.
+Verify currentPassword using your existing comparePassword.
+Validate newPassword rules (length, complexity if desired).
+Ensure newPassword !== currentPassword.
+Hash newPassword with hashPassword.
+Update only password field in DB.
+Optional but recommended: invalidate/reissue auth token after change.
+Why separate route?
+Prevents accidental password writes in general profile updates.
+Allows stricter validation and security checks.
+Clear audit/debug path when password-change fails.
+Frontend flow
+Add a dedicated “Change Password” form (in Profile or separate page).
+Fields: current/new/confirm.
+Submit to /users/update-password.
+On success:
+show toast
+either keep user logged in with a new token, or force re-login (both valid; forcing re-login is stricter).
+One thing in your current code to avoid
+You should never prefill password fields from user data. In your setup, getCurrentUser omits password (correct), so defaultValue={password} is not useful and should stay removed.
+
 NAVBAR
 
 // import { useLocation, Link } from "react-router-dom";
@@ -184,11 +242,6 @@ If you didn’t use migrate: npx prisma db push then npx prisma generate
 Restart npm run dev
 That’s the full loop so DB columns, migration history, and generated client all match your schema.
 
-THINGS TO FIX
-
-- transparent grey on navbar & small sidebar
-- small sidebar bar on small screen doesn't register dark and light mode
-
 ADD TRADE
 
 import { useMemo, useState } from "react";
@@ -316,6 +369,7 @@ ASSET_HINTS[assetType] ??
 
 return (
 <Wrapper>
+
 <Form method="post" className="form">
 <h4 className="form-title">add trade</h4>
 <p className="form-lead">
@@ -438,3 +492,18 @@ list={Object.values(ASSET_TYPE)}
 };
 
 export default AddTrade;
+
+---
+
+## Market news (Finnhub)
+
+The **News** dashboard page loads headlines from [Finnhub](https://finnhub.io/) via the server so your API key stays private.
+
+1. Sign up at Finnhub and copy your API key.
+2. Add to the **server** `.env` (same folder as `server.js`):
+
+   `FINNHUB_API_KEY=your_key_here`
+
+3. Restart `npm run dev`. Without `FINNHUB_API_KEY`, the app shows a **demo** feed so the UI still works.
+
+The **“Orange Alert: The Trump Tape”** sidebar is the same headline list, filtered by keywords (Trump, tariffs, White House, Mar-a-Lago, etc.) — for fun, not political analysis.

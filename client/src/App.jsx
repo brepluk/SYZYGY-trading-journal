@@ -5,10 +5,12 @@ import { action as loginAction } from "./pages/Login";
 import { loader as dashboardLoader } from "./pages/DashboardLayout";
 import { action as addTradeAction } from "./pages/AddTrade";
 import { loader as allTradesLoader } from "./pages/AllTrades";
-import {
-  loader as tradeNotesLoader,
-  action as tradeNotesAction,
-} from "./pages/Notes";
+import { loader as editTradeLoader } from "./pages/EditTrade";
+import { action as editTradeAction } from "./pages/EditTrade";
+import { loader as tradeNotesLoader } from "./pages/Notes";
+import { action as tradeNotesAction } from "./pages/Notes";
+import { action as deleteTradeAction } from "./pages/DeleteTrade";
+import { action as profileAction } from "./pages/Profile";
 
 export const checkDefaultTheme = () => {
   const stored = localStorage.getItem("darkTheme");
@@ -31,6 +33,7 @@ import AllTrades from "./pages/AllTrades";
 import Profile from "./pages/Profile";
 import EditTrade from "./pages/EditTrade";
 import Notes from "./pages/Notes";
+import News from "./pages/News";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +77,12 @@ const router = createBrowserRouter([
           {
             path: "edit-trade/:id",
             element: <EditTrade />,
+            loader: editTradeLoader,
+            action: editTradeAction,
+          },
+          {
+            path: "delete-trade/:id",
+            action: deleteTradeAction,
           },
           {
             path: "trade/:id/notes",
@@ -88,6 +97,12 @@ const router = createBrowserRouter([
           {
             path: "profile",
             element: <Profile />,
+            action: profileAction,
+          },
+
+          {
+            path: "news",
+            element: <News />,
           },
         ],
       },

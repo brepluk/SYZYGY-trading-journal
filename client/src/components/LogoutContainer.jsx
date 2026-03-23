@@ -1,6 +1,5 @@
 import Wrapper from "../wrappers/LogoutContainer";
 import { useDashboardContext } from "../pages/DashboardLayout";
-import { useState } from "react";
 
 const LogoutContainer = () => {
   const { user, logoutUser } = useDashboardContext();

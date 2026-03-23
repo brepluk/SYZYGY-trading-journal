@@ -1,6 +1,8 @@
 import { useEffect, useRef } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
+import { toast } from "react-toastify";
+import customFetch from "../utils/customFetch";
 
 const TOOLBAR_OPTIONS = [
   [{ header: [1, 2, 3, false] }],
@@ -17,6 +19,25 @@ function setEditorHtml(quill, html) {
   const safe = html?.trim() ? html : "<p><br></p>";
   const delta = quill.clipboard.convert({ html: safe, text: "" });
   quill.setContents(delta, Quill.sources.SILENT);
+}
+
+async function selectImageFileFromDevice() {
+  return new Promise((resolve) => {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = "image/*";
+    input.onchange = () => resolve(input.files?.[0] ?? null);
+    input.click();
+  });
+}
+
+async function uploadImageToCloudinary(file) {
+  const formData = new FormData();
+  formData.append("image", file);
+  const { data } = await customFetch.post("/trades/upload-image", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
+  return data?.url;
 }
 
 /**
@@ -44,6 +65,27 @@ export default function TradeNotesEditor({ value, onChange, placeholder }) {
     quillRef.current = q;
 
     setEditorHtml(q, value ?? "");
+
+    const toolbar = q.getModule("toolbar");
+    toolbar?.addHandler("image", async () => {
+      try {
+        const file = await selectImageFileFromDevice();
+        if (!file) return;
+        const imageUrl = await uploadImageToCloudinary(file);
+        if (!imageUrl) {
+          toast.error("Image upload failed");
+          return;
+        }
+        const range = q.getSelection(true);
+        const index = range ? range.index : q.getLength();
+        q.insertEmbed(index, "image", imageUrl, Quill.sources.USER);
+        q.setSelection(index + 1, Quill.sources.SILENT);
+      } catch (error) {
+        toast.error(
+          error?.response?.data?.message ?? "Could not upload image. Try again.",
+        );
+      }
+    });
 
     const handleTextChange = () => {
       onChangeRef.current(q.root.innerHTML);

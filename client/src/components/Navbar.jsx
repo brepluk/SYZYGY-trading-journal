@@ -4,7 +4,6 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import Wrapper from "../wrappers/Navbar";
 import { useDashboardContext } from "../pages/DashboardLayout";
 import { SECTION_LABELS, DATE_FILTERS } from "../utils/links";
-import LogoutContainer from "./LogoutContainer";
 
 const Navbar = () => {
   const { user } = useDashboardContext();

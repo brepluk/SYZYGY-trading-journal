@@ -97,12 +97,12 @@ const Wrapper = styled.article`
       display: grid;
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
-        "sym pnl"
-        "nt act"
+        "sym sym"
+        "pnl pnl"
         "side stat"
         "ent ext"
-        "qty qty"
-        "dat dat";
+        "qty dat"
+        "nt act";
       gap: 0.75rem 1rem;
       align-items: start;
       padding: 1rem 1.1rem;
@@ -142,8 +142,8 @@ const Wrapper = styled.article`
 
     .trade-cell--pnl {
       grid-area: pnl;
-      justify-self: end;
-      text-align: right;
+      justify-self: start;
+      text-align: left;
     }
 
     .trade-cell--pnl .trade-cell__value {
@@ -196,6 +196,8 @@ const Wrapper = styled.article`
 
     .trade-cell--date {
       grid-area: dat;
+      justify-self: end;
+      text-align: right;
     }
 
     .trade-cell--side,
@@ -210,12 +212,14 @@ const Wrapper = styled.article`
     }
 
     .trade-cell--status,
-    .trade-cell--exit {
+    .trade-cell--exit,
+    .trade-cell--date {
       align-items: flex-end;
     }
 
     .trade-cell--status .trade-cell__value,
-    .trade-cell--exit .trade-cell__value {
+    .trade-cell--exit .trade-cell__value,
+    .trade-cell--date .trade-cell__value {
       display: inline-flex;
       justify-content: flex-end;
     }

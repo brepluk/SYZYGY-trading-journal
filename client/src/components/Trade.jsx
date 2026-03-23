@@ -2,7 +2,7 @@ import dayjs from "dayjs";
 import { FaPen, FaRegStickyNote, FaRegTrashAlt } from "react-icons/fa";
 import TradeInfo from "./TradeInfo";
 import Wrapper from "../wrappers/Trade";
-import { Link } from "react-router-dom";
+import { Link, Form } from "react-router-dom";
 
 const money = (n) => {
   if (n === null || n === undefined || Number.isNaN(Number(n))) return "—";
@@ -108,13 +108,15 @@ const Trade = ({
         >
           <FaPen size={16} />
         </Link>
-        <button
-          type="button"
-          className="trade-icon-btn trade-icon-btn--danger"
-          aria-label="Delete trade"
-        >
-          <FaRegTrashAlt size={17} />
-        </button>
+        <Form method="post" action={`../delete-trade/${id}`}>
+          <button
+            type="submit"
+            className="trade-icon-btn trade-icon-btn--danger"
+            aria-label="Delete trade"
+          >
+            <FaRegTrashAlt size={17} />
+          </button>
+        </Form>
       </div>
     </Wrapper>
   );

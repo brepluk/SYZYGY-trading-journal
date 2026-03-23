@@ -4,6 +4,7 @@ import {
   HiOutlineClipboardList,
   HiOutlineChartBar,
   HiOutlineChevronLeft,
+  HiOutlineNewspaper,
 } from "react-icons/hi";
 import { LuChartCandlestick } from "react-icons/lu";
 
@@ -23,11 +24,12 @@ const links = [
     path: "all-trades",
     icon: <LuChartCandlestick />,
   },
-  {
-    text: "Stats",
-    path: "stats",
-    icon: <HiOutlineChartBar />,
-  },
+  // {
+  //   text: "Stats",
+  //   path: "stats",
+  //   icon: <HiOutlineChartBar />,
+  // },
+  { text: "News", path: "news", icon: <HiOutlineNewspaper /> },
 ];
 
 export const SECTION_LABELS = {
@@ -36,6 +38,7 @@ export const SECTION_LABELS = {
   "/dashboard/all-trades": "All Trades",
   "/dashboard/stats": "Stats",
   "/dashboard/profile": "Profile",
+  "/dashboard/news": "News",
 };
 
 export const DATE_FILTERS = [
