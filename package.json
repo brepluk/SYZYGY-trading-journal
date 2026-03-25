@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "prisma generate",
+    "build": "cd client && npm install && npm run build",
     "setup-project": "npm i && cd client && npm i",
     "server": "nodemon server",
     "client": "cd client && npm run dev",
