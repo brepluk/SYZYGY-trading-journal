@@ -5,6 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "postinstall": "prisma generate",
     "setup-project": "npm i && cd client && npm i",
     "server": "nodemon server",
     "client": "cd client && npm run dev",
@@ -29,10 +30,10 @@
     "multer": "^2.1.1",
     "nanoid": "^5.1.7",
     "nodemon": "^3.1.14",
-    "react-toastify": "^11.0.5"
+    "react-toastify": "^11.0.5",
+    "prisma": "^7.5.0"
   },
   "devDependencies": {
-    "dotenv": "^17.3.1",
-    "prisma": "^7.5.0"
+    "dotenv": "^17.3.1"
   }
 }
