@@ -36,6 +36,7 @@ import Profile from "./pages/Profile";
 import EditTrade from "./pages/EditTrade";
 import Notes from "./pages/Notes";
 import News from "./pages/News";
+import Starfield from "./components/Starfield";
 
 const router = createBrowserRouter([
   {
@@ -117,7 +118,12 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <Starfield count={70} />
+      <RouterProvider router={router} />
+    </>
+  );
 };
 
 export default App;

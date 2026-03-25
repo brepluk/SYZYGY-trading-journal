@@ -3,8 +3,11 @@ dotenv.config();
 
 import express from "express";
 import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 import morgan from "morgan";
 import { prisma } from "./prisma/client.js";
@@ -24,33 +27,30 @@ import { authenticateUser } from "./middleware/authMiddleware.js";
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
   api_key: process.env.CLOUD_API_KEY || process.env.CLOUDINARY_API_KEY,
-  api_secret:
-    process.env.CLOUD_API_SECRET || process.env.CLOUDINARY_API_SECRET,
+  api_secret: process.env.CLOUD_API_SECRET || process.env.CLOUDINARY_API_SECRET,
 });
 
 if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
+
 app.use(cookieParser());
 app.use(express.json());
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
-
-app.get("/api/v1/test", (req, res) => {
-  res.json({ msg: "test route" });
-});
+app.use(express.static(path.resolve(__dirname, "./client/dist")));
 
 app.use("/api/v1/trades", authenticateUser, tradeRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/news", authenticateUser, newsRouter);
 
-app.all("/{*splat}", (req, res) => {
+app.all("/api/{*splat}", (req, res) => {
   res.status(404).json({ msg: "not found" });
+});
+
+app.get("/{*splat}", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "./client/dist/index.html"));
 });
 
 app.use(errorHandlerMiddleware);
@@ -61,9 +61,9 @@ try {
   await prisma.$connect();
 
   app.listen(port, () => {
-    console.log(`Server is running on port ${port}...`);
+    console.info(`Server is running on port ${port}...`);
   });
 } catch (error) {
-  console.log(error);
+  console.error(error);
   process.exit(1);
 }

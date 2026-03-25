@@ -1,7 +1,7 @@
 import { useState, createContext, useContext } from "react";
 import { Outlet, useLoaderData, redirect, useNavigate } from "react-router-dom";
 import Wrapper from "../wrappers/DashboardLayout";
-import { Navbar, BigSidebar, SmallSidebar, Starfield } from "../components";
+import { Navbar, BigSidebar, SmallSidebar } from "../components";
 import { checkDefaultTheme } from "../App";
 import customFetch from "../utils/customFetch";
 import { toast } from "react-toastify";
@@ -60,7 +60,6 @@ const DashboardLayout = () => {
       }}
     >
       <Wrapper>
-        <Starfield count={70} />
         <main className="dashboard">
           <div className="dashboard-sidebars">
             <SmallSidebar className="small-sidebar" />

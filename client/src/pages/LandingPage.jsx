@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FiClipboard, FiBarChart2, FiBook } from "react-icons/fi";
 import Logo, { SyzygyWordmark } from "../components/Logo";
-import Starfield from "../components/Starfield";
 import Wrapper from "../wrappers/LandingPage";
 import SS1 from "../assets/images/SYZDASH.png";
 import SS2 from "../assets/images/SYZALL.png";
@@ -51,7 +50,6 @@ const LandingPage = () => {
 
   return (
     <Wrapper>
-      <Starfield count={80} />
       <nav className="nav">
         <Logo className="logo" />
         <div className="nav-actions">

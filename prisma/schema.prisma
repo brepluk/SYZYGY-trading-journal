@@ -16,10 +16,13 @@ enum AssetType {
 }
 
 enum TradeSide {
-  CALL
-  PUT
   BUY
   SELL
+}
+
+enum PositionSide {
+  CALL
+  PUT
 }
 
 enum TradeStatus {
@@ -30,10 +33,11 @@ enum TradeStatus {
 model Trade {
   id String @id @default(cuid())
 
-  ticker    String
-  assetType AssetType   @default(OPTION)
-  side      TradeSide
-  status    TradeStatus @default(CLOSED)
+  ticker       String
+  assetType    AssetType     @default(OPTION)
+  side         TradeSide
+  positionSide PositionSide?
+  status       TradeStatus   @default(CLOSED)
 
   entryDate DateTime
   exitDate  DateTime?
@@ -51,16 +55,34 @@ model Trade {
   pnl        Float?
   pnlPercent Float?
 
-  thesis        String?
-  notes         String?
-  setupTag      String?
-  screenshots   String[] @default([])
+  thesis      String?
+  notes       String?
+  setupTag    String?
+  screenshots String[]  @default([])
+  exitLegs    ExitLeg[]
 
   userId String
   user   User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model ExitLeg {
+  id String @id @default(cuid())
+
+  quantity Float
+  price    Float
+  exitDate DateTime
+  note     String?
+
+  tradeId String
+  trade   Trade  @relation(fields: [tradeId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tradeId, exitDate])
 }
 
 model User {

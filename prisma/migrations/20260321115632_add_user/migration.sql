@@ -2,7 +2,7 @@
 CREATE TYPE "AssetType" AS ENUM ('OPTION', 'STOCK', 'FOREX', 'FUTURES', 'CRYPTO', 'INDEX');
 
 -- CreateEnum
-CREATE TYPE "TradeSide" AS ENUM ('CALL', 'PUT', 'BUY', 'SELL');
+CREATE TYPE "TradeSide" AS ENUM ('BUY', 'SELL');
 
 -- CreateEnum
 CREATE TYPE "TradeStatus" AS ENUM ('OPEN', 'CLOSED');

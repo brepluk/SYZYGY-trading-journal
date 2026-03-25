@@ -6,7 +6,6 @@ import {
   useNavigate,
 } from "react-router-dom";
 import { Logo, FormRow } from "../components";
-import Starfield from "../components/Starfield";
 import Wrapper from "../wrappers/RegisterAndLoginPage";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
@@ -55,7 +54,6 @@ const Login = () => {
   return (
     <Wrapper>
       <Form method="post" className="form-page">
-        <Starfield />
         <nav className="nav">
           <Logo className="logo" />
           <div className="nav-actions">

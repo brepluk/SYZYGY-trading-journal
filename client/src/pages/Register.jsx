@@ -2,7 +2,6 @@ import { Form, redirect, useNavigation, Link } from "react-router-dom";
 import customFetch from "../utils/customFetch";
 import Logo from "../components/Logo";
 import FormRow from "../components/FormRow";
-import Starfield from "../components/Starfield";
 import Wrapper from "../wrappers/RegisterAndLoginPage";
 import { toast } from "react-toastify";
 
@@ -28,7 +27,6 @@ const Register = () => {
   return (
     <Wrapper>
       <Form method="post" className="form-page">
-        <Starfield />
         <nav className="nav">
           <Logo className="logo" />
           <div className="nav-actions">

@@ -18,5 +18,7 @@ export const updateUser = async (req, res) => {
     where: { id: req.user.userId },
     data: newUser,
   });
-  res.status(StatusCodes.OK).json({ message: "User updated successfully" });
+  res
+    .status(StatusCodes.OK)
+    .json({ user: updatedUser, message: "User updated successfully" });
 };

@@ -4,7 +4,12 @@ import {
   NotFoundError,
   UnauthorizedError,
 } from "../errors/customErrors.js";
-import { ASSET_TYPE, TRADE_SIDE, TRADE_STATUS } from "../utils/constants.js";
+import {
+  ASSET_TYPE,
+  POSITION_SIDE,
+  TRADE_SIDE,
+  TRADE_STATUS,
+} from "../utils/constants.js";
 import { prisma } from "../prisma/client.js";
 
 const withValidationErrors = (validateValues) => {
@@ -43,6 +48,15 @@ export const validateCreateTradeInput = withValidationErrors([
     .withMessage("side is required")
     .isIn(Object.values(TRADE_SIDE))
     .withMessage("invalid side value"),
+  body("positionSide").custom((value) => {
+    if (value === undefined || value === null || value === "") {
+      throw new Error("call or put is required");
+    }
+    if (!Object.values(POSITION_SIDE).includes(value)) {
+      throw new Error("invalid call or put value");
+    }
+    return true;
+  }),
   body("status")
     .optional()
     .isIn(Object.values(TRADE_STATUS))
@@ -68,6 +82,15 @@ export const validateUpdateTradeInput = withValidationErrors([
     .optional()
     .isIn(Object.values(TRADE_SIDE))
     .withMessage("invalid side value"),
+  body("positionSide")
+    .optional({ nullable: true })
+    .custom((value) => {
+      if (value === undefined || value === null || value === "") return true;
+      if (!Object.values(POSITION_SIDE).includes(value)) {
+        throw new Error("invalid call or put value");
+      }
+      return true;
+    }),
   body("status")
     .optional()
     .isIn(Object.values(TRADE_STATUS))
@@ -77,11 +100,11 @@ export const validateUpdateTradeInput = withValidationErrors([
     .isISO8601()
     .withMessage("entryDate must be a valid ISO date"),
   body("exitDate")
-    .optional({ nullable: true })
+    .optional({ nullable: true, checkFalsy: true })
     .isISO8601()
     .withMessage("exitDate must be a valid ISO date"),
   body("expiration")
-    .optional({ nullable: true })
+    .optional({ nullable: true, checkFalsy: true })
     .isISO8601()
     .withMessage("expiration must be a valid ISO date"),
   body("entryPrice")
@@ -89,15 +112,15 @@ export const validateUpdateTradeInput = withValidationErrors([
     .isFloat()
     .withMessage("entryPrice must be a number"),
   body("exitPrice")
-    .optional({ nullable: true })
+    .optional({ nullable: true, checkFalsy: true })
     .isFloat()
     .withMessage("exitPrice must be a number"),
   body("contracts")
-    .optional({ nullable: true })
+    .optional({ nullable: true, checkFalsy: true })
     .isInt()
     .withMessage("contracts must be an integer"),
   body("quantity")
-    .optional({ nullable: true })
+    .optional({ nullable: true, checkFalsy: true })
     .isFloat()
     .withMessage("quantity must be a number"),
   body("notes")

@@ -9,24 +9,42 @@ import {
   updateTrade,
   deleteTrade,
   uploadTradeImage,
+  getDashboardStats,
+  getDashboardCalendar,
 } from "../controllers/tradeController.js";
 import {
   validateCreateTradeInput,
   validateIdParam,
   validateUpdateTradeInput,
 } from "../middleware/validationMiddleware.js";
+import { checkForTestUser } from "../middleware/authMiddleware.js";
 
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024 },
 });
 
-router.route("/").get(getAllTrades).post(validateCreateTradeInput, createTrade);
-router.post("/upload-image", upload.single("image"), uploadTradeImage);
+router
+  .route("/")
+  .get(getAllTrades)
+  .post(checkForTestUser, validateCreateTradeInput, createTrade);
+router.post(
+  "/upload-image",
+  checkForTestUser,
+  upload.single("image"),
+  uploadTradeImage,
+);
+router.get("/dashboard-stats", getDashboardStats);
+router.get("/dashboard-calendar", getDashboardCalendar);
 router
   .route("/:id")
   .get(...validateIdParam, getSingleTrade)
-  .patch(...validateIdParam, validateUpdateTradeInput, updateTrade)
-  .delete(...validateIdParam, deleteTrade);
+  .patch(
+    checkForTestUser,
+    ...validateIdParam,
+    validateUpdateTradeInput,
+    updateTrade,
+  )
+  .delete(checkForTestUser, ...validateIdParam, deleteTrade);
 
 export default router;
