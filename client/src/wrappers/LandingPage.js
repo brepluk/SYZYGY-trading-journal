@@ -10,10 +10,48 @@ const Wrapper = styled.main`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
     padding: 1.25rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  @media (max-width: 640px) {
+    .nav {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 1rem 1rem;
+      gap: 0.875rem;
+    }
+    .nav-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.35rem;
+    }
+    .nav-link,
+    .nav-link-primary {
+      text-align: center;
+      justify-content: center;
+      display: inline-flex;
+      align-items: center;
+    }
+    .nav-link-label--long {
+      display: none;
+    }
+    .nav-link-label--short {
+      display: inline;
+    }
+  }
+
+  @media (min-width: 641px) {
+    .nav-link-label--short {
+      display: none;
+    }
+    .nav-link-label--long {
+      display: inline;
+    }
   }
 
   .logo.logo-wordmark,
@@ -49,6 +87,24 @@ const Wrapper = styled.main`
       background: var(--background-secondary-color);
     }
   }
+  .nav-link-demo {
+    color: var(--text-color);
+    border-color: color-mix(in srgb, var(--accent-color) 45%, var(--border-color));
+    background: color-mix(
+      in srgb,
+      var(--accent-color) 12%,
+      var(--background-secondary-color)
+    );
+    font-weight: 500;
+    &:hover {
+      border-color: var(--accent-color);
+      background: color-mix(
+        in srgb,
+        var(--accent-color) 20%,
+        var(--background-secondary-color)
+      );
+    }
+  }
   .nav-link-primary {
     color: var(--btn-color);
     background: var(--btn-bg);
@@ -66,6 +122,17 @@ const Wrapper = styled.main`
       color: var(--btn-color);
       background: var(--accent-color);
       border-color: var(--accent-color);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .nav-link,
+    .nav-link-primary {
+      font-size: 0.75rem;
+      font-weight: 500;
+      padding: 0.35rem 0.35rem;
+      min-height: 2rem;
+      line-height: 1.15;
     }
   }
 
@@ -205,7 +272,7 @@ const Wrapper = styled.main`
   .tool-card {
     background: var(--background-secondary-color);
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: var(--border-radius-lg);
     padding: 1.5rem;
     transition:
       border-color var(--transition),
@@ -352,6 +419,52 @@ const Wrapper = styled.main`
   }
   .carousel-arrow-next {
     right: 0.75rem;
+  }
+
+  @media (max-width: 640px) {
+    .logo.logo-wordmark,
+    .logo-wordmark {
+      font-size: 1rem;
+      gap: 0.28rem;
+    }
+    .logo-wordmark .logo-wordmark-icon {
+      font-size: 1.05rem;
+    }
+    .section {
+      padding: 2.25rem 1.25rem;
+    }
+    .about-section {
+      padding-top: 2.5rem;
+    }
+    .about-title .wordmark-syzygy--hero {
+      font-size: clamp(1.5rem, 7vw, 1.85rem);
+    }
+    .about-byline {
+      font-size: 0.72rem;
+    }
+    .about-pronounce {
+      font-size: clamp(0.82rem, 3.2vw, 0.92rem);
+      margin-bottom: 1.35rem;
+    }
+    .about-lede {
+      font-size: clamp(0.88rem, 3.5vw, 0.98rem);
+      margin-bottom: 1.35rem;
+    }
+    .about-body {
+      font-size: 0.9375rem;
+      line-height: 1.65;
+    }
+    .tools-title,
+    .dashboard-title {
+      font-size: clamp(1.2rem, 4.5vw, 1.45rem);
+      margin-bottom: 1.5rem;
+    }
+    .tool-name {
+      font-size: 1rem;
+    }
+    .tool-desc {
+      font-size: 0.8125rem;
+    }
   }
 `;
 

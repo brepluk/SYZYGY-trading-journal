@@ -49,4 +49,3 @@ export const toDateInputValue = (value) => {
   const dd = pad2(d.getDate());
   return `${yyyy}-${mm}-${dd}`;
 };
-

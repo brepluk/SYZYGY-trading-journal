@@ -1,4 +1,21 @@
-const FormRowSelect = ({ name, labelText, list, defaultValue = "" }) => {
+const optionKey = (item) =>
+  typeof item === "string" ? item : item.value;
+
+const optionValue = (item) =>
+  typeof item === "string" ? item : item.value;
+
+const optionLabel = (item) =>
+  typeof item === "string" ? item : item.label;
+
+const FormRowSelect = ({
+  name,
+  labelText,
+  list,
+  defaultValue = "",
+  value,
+  onChange,
+}) => {
+  const isControlled = value !== undefined;
   return (
     <div className="form-row">
       <label htmlFor={name} className="form-label">
@@ -8,12 +25,18 @@ const FormRowSelect = ({ name, labelText, list, defaultValue = "" }) => {
         name={name}
         id={name}
         className="form-select"
-        defaultValue={defaultValue}
+        {...(isControlled
+          ? { value, onChange }
+          : {
+              ...(defaultValue !== undefined ? { defaultValue } : {}),
+              ...(onChange ? { onChange } : {}),
+            })}
       >
-        {list.map((itemValue) => {
+        {list.map((item) => {
+          const v = optionValue(item);
           return (
-            <option key={itemValue} value={itemValue}>
-              {itemValue}
+            <option key={optionKey(item)} value={v}>
+              {optionLabel(item)}
             </option>
           );
         })}

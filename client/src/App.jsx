@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import HomeLayout from "./pages/HomeLayout";
 import { action as registerAction } from "./pages/Register";
 import { action as loginAction } from "./pages/Login";
-import { loader as dashboardLoader } from "./pages/DashboardLayout";
+import { loader as dashboardLayoutLoader } from "./pages/DashboardLayout";
 import { action as addTradeAction } from "./pages/AddTrade";
 import { loader as allTradesLoader } from "./pages/AllTrades";
 import { loader as editTradeLoader } from "./pages/EditTrade";
@@ -11,6 +11,8 @@ import { loader as tradeNotesLoader } from "./pages/Notes";
 import { action as tradeNotesAction } from "./pages/Notes";
 import { action as deleteTradeAction } from "./pages/DeleteTrade";
 import { action as profileAction } from "./pages/Profile";
+import { loader as newsLoader } from "./pages/News";
+import { editTradeNavHandle, tradeNotesNavHandle } from "./utils/navTitles";
 
 export const checkDefaultTheme = () => {
   const stored = localStorage.getItem("darkTheme");
@@ -24,7 +26,7 @@ checkDefaultTheme();
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import DashboardLayout from "./pages/DashboardLayout";
-import Dashboard from "./pages/Dashboard";
+import Dashboard, { loader as dashboardPageLoader } from "./pages/Dashboard";
 import Error from "./pages/Error";
 import LandingPage from "./pages/LandingPage";
 import Stats from "./pages/Stats";
@@ -58,11 +60,12 @@ const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <DashboardLayout />,
-        loader: dashboardLoader,
+        loader: dashboardLayoutLoader,
         children: [
           {
             index: true,
             element: <Dashboard />,
+            loader: dashboardPageLoader,
           },
           {
             path: "add-trade",
@@ -79,6 +82,7 @@ const router = createBrowserRouter([
             element: <EditTrade />,
             loader: editTradeLoader,
             action: editTradeAction,
+            handle: editTradeNavHandle,
           },
           {
             path: "delete-trade/:id",
@@ -89,6 +93,7 @@ const router = createBrowserRouter([
             element: <Notes />,
             loader: tradeNotesLoader,
             action: tradeNotesAction,
+            handle: tradeNotesNavHandle,
           },
           {
             path: "stats",
@@ -103,6 +108,7 @@ const router = createBrowserRouter([
           {
             path: "news",
             element: <News />,
+            loader: newsLoader,
           },
         ],
       },

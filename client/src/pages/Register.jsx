@@ -23,7 +23,6 @@ export const action = async ({ request }) => {
 };
 const Register = () => {
   const navigation = useNavigation();
-  console.log(navigation);
   const isSubmitting = navigation.state === "submitting";
 
   return (
@@ -46,13 +45,9 @@ const Register = () => {
           <div className="form-card">
             <div className="form">
               <h4>Register</h4>
-              <FormRow type="text" name="name" defaultValue="Foosh Singh" />
-              <FormRow
-                type="email"
-                name="email"
-                defaultValue="foosh@gmail.com"
-              />
-              <FormRow type="password" name="password" defaultValue="123456" />
+              <FormRow type="text" name="name" />
+              <FormRow type="email" name="email" />
+              <FormRow type="password" name="password" />
               <button
                 type="submit"
                 className="btn btn-block"

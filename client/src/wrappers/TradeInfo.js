@@ -1,8 +1,5 @@
 import styled from "styled-components";
 
-/**
- * TradeInfo badge surface — used by TradeInfo.jsx for side & status chips.
- */
 const Wrapper = styled.span`
   display: inline-flex;
   align-items: center;
@@ -21,29 +18,35 @@ const Wrapper = styled.span`
     border: 1px solid transparent;
   }
 
-  .trade-badge__arrow {
-    font-size: 0.75em;
-    line-height: 1;
-  }
-
-  /* Side: CALL / PUT */
-  .trade-badge--call {
+  .trade-badge--buy {
     color: #4ade80;
     background: color-mix(in srgb, #4ade80 14%, transparent);
     border-color: color-mix(in srgb, #4ade80 45%, transparent);
   }
 
-  .trade-badge--put {
+  .trade-badge--sell {
     color: #f87171;
     background: color-mix(in srgb, #f87171 14%, transparent);
     border-color: color-mix(in srgb, #f87171 45%, transparent);
   }
 
-  .trade-badge--buy,
-  .trade-badge--sell {
+  .trade-badge--long {
+    color: #4ade80;
+    background: color-mix(in srgb, #4ade80 14%, transparent);
+    border-color: color-mix(in srgb, #4ade80 45%, transparent);
+  }
+
+  .trade-badge--short {
+    color: #f87171;
+    background: color-mix(in srgb, #f87171 14%, transparent);
+    border-color: color-mix(in srgb, #f87171 45%, transparent);
+  }
+
+  .trade-badge--na {
     color: var(--text-secondary-color);
-    background: var(--background-secondary-color);
-    border-color: var(--border-color);
+    background: transparent;
+    border-color: transparent;
+    font-weight: 500;
   }
 
   /* Status: OPEN / CLOSED — neutral, no accent fills */

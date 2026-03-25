@@ -29,32 +29,28 @@ const Profile = () => {
 
   return (
     <Wrapper>
-      <h1>Profile &amp; Settings</h1>
+      <h3>Profile &amp; Settings</h3>
 
-      <div className="settings-card">
-        <h2>Account</h2>
-        <p className="text-small">Manage your account and preferences.</p>
-      </div>
-
-      <div className="settings-card">
-        <h2>Appearance</h2>
-        <p className="text-small">Choose how SYZYGY looks.</p>
-        <ThemeToggle />
-      </div>
-      <LogoutContainer />
       <div className="settings-card">
         <Form method="post" className="form-page">
           <h2>Profile</h2>
+          <p className="text-small">Manage your account and preferences.</p>
           <div className="form-center">
             <FormRow type="text" name="name" defaultValue={name} />
             <FormRow type="email" name="email" defaultValue={email} />
-
-            <button type="submit" className="btn btn-block" disabled={isSaving}>
+            <button type="submit" className="btn" disabled={isSaving}>
               {isSaving ? "Saving..." : "Save Changes"}
             </button>
           </div>
         </Form>
       </div>
+      <div className="settings-card">
+        <h2>Appearance</h2>
+        <p className="text-small">Choose how SYZYGY looks.</p>
+        <ThemeToggle />
+      </div>
+
+      <LogoutContainer />
     </Wrapper>
   );
 };

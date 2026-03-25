@@ -10,10 +10,37 @@ const Wrapper = styled.main`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1rem;
     padding: 1.25rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
     border-bottom: 1px solid var(--border-color);
+  }
+
+  @media (max-width: 640px) {
+    .nav {
+      flex-direction: column;
+      align-items: stretch;
+      padding: 1rem 1rem;
+      gap: 0.875rem;
+    }
+    .nav-actions {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+    }
+    .nav-link,
+    .nav-link-primary {
+      font-size: 0.8125rem;
+      padding: 0.55rem 0.4rem;
+      text-align: center;
+      justify-content: center;
+      display: inline-flex;
+      align-items: center;
+      min-height: 2.75rem;
+      line-height: 1.2;
+    }
   }
   .logo.logo-wordmark,
   .logo-wordmark {
@@ -71,7 +98,7 @@ const Wrapper = styled.main`
   .form-card {
     background: var(--background-secondary-color);
     border: 1px solid var(--border-color);
-    border-radius: 10px;
+    border-radius: var(--border-radius-lg);
     padding: 2rem 2.5rem;
     width: 100%;
     max-width: var(--fixed-width, 420px);
@@ -111,6 +138,17 @@ const Wrapper = styled.main`
   .btn-block {
     margin-top: 0.5rem;
     margin-bottom: 1rem;
+  }
+  .btn-explore {
+    margin-top: -0.25rem;
+    color: var(--text-color);
+    background: transparent;
+    border: 1px solid var(--border-color);
+  }
+  .btn-explore:hover {
+    color: var(--text-color);
+    border-color: var(--accent-color);
+    background: var(--background-color);
   }
   .member-text {
     text-align: center;

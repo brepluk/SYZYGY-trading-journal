@@ -1,9 +1,23 @@
+import { useState } from "react";
 import { FormRow, FormRowSelect } from "../components";
 import Wrapper from "../wrappers/AddTrade";
 import customFetch from "../utils/customFetch";
 import { Form, redirect, useNavigation } from "react-router-dom";
 import { toast } from "react-toastify";
-import { TRADE_SIDE, TRADE_STATUS, ASSET_TYPE } from "../../../utils/constants";
+import {
+  TRADE_SIDE,
+  TRADE_STATUS,
+  ASSET_TYPE,
+  POSITION_SIDE,
+} from "../../../utils/constants";
+
+const newExitLeg = () => ({
+  id: crypto.randomUUID(),
+  quantity: "",
+  price: "",
+  exitDate: "",
+  note: "",
+});
 
 export const action = async ({ request }) => {
   const formData = await request.formData();
@@ -23,6 +37,28 @@ export const action = async ({ request }) => {
 const AddTrade = () => {
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+  const [status, setStatus] = useState(TRADE_STATUS.OPEN);
+  const exitFieldsVisible = status === TRADE_STATUS.CLOSED;
+  const [exitLegs, setExitLegs] = useState([newExitLeg()]);
+
+  const updateExitLeg = (id, field, value) => {
+    setExitLegs((prev) =>
+      prev.map((leg) => (leg.id === id ? { ...leg, [field]: value } : leg)),
+    );
+  };
+
+  const addExitLeg = () => {
+    setExitLegs((prev) => [...prev, newExitLeg()]);
+  };
+
+  const removeExitLeg = (id) => {
+    setExitLegs((prev) => prev.filter((leg) => leg.id !== id));
+  };
+
+  const serializedExitLegs = JSON.stringify(
+    exitFieldsVisible ? exitLegs.map(({ id, ...leg }) => leg) : [],
+  );
+
   return (
     <Wrapper>
       <Form method="post" className="form-page">
@@ -35,9 +71,14 @@ const AddTrade = () => {
           />
           <FormRow type="text" name="ticker" labelText="Ticker" />
           <FormRowSelect
-            labelText="trade side"
+            labelText="buy or sell"
             name="side"
             list={Object.values(TRADE_SIDE)}
+          />
+          <FormRowSelect
+            labelText="call or put"
+            name="positionSide"
+            list={Object.values(POSITION_SIDE)}
           />
           <FormRow
             type="datetime-local"
@@ -62,22 +103,75 @@ const AddTrade = () => {
           <FormRowSelect
             labelText="trade status"
             name="status"
-            defaultValue={TRADE_STATUS.OPEN}
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
             list={Object.values(TRADE_STATUS)}
           />
+          <input type="hidden" name="exitLegs" value={serializedExitLegs} />
 
-          <FormRow
-            type="number"
-            name="exitPrice"
-            labelText="Exit Price"
-            step="any"
-          />
-          <FormRow
-            type="datetime-local"
-            name="exitDate"
-            labelText="Exit date & time"
-            step={1}
-          />
+          {exitFieldsVisible && (
+            <section className="exit-legs">
+              <h5 className="exit-legs__header">Scale-out exits</h5>
+              {exitLegs.map((leg) => (
+                <div key={leg.id} className="exit-leg-row">
+                  <FormRow
+                    type="number"
+                    name={`exitQty-${leg.id}`}
+                    labelText="Qty closed"
+                    value={leg.quantity}
+                    handleChange={(e) =>
+                      updateExitLeg(leg.id, "quantity", e.target.value)
+                    }
+                    step="any"
+                  />
+                  <FormRow
+                    type="number"
+                    name={`exitPrice-${leg.id}`}
+                    labelText="Exit price"
+                    value={leg.price}
+                    handleChange={(e) =>
+                      updateExitLeg(leg.id, "price", e.target.value)
+                    }
+                    step="any"
+                  />
+                  <FormRow
+                    type="datetime-local"
+                    name={`exitDate-${leg.id}`}
+                    labelText="Exit date & time"
+                    value={leg.exitDate}
+                    handleChange={(e) =>
+                      updateExitLeg(leg.id, "exitDate", e.target.value)
+                    }
+                    step={1}
+                  />
+                  <div className="form-row exit-leg-remove-wrap">
+                    <label
+                      className="form-label"
+                      htmlFor={`removeExit-${leg.id}`}
+                    >
+                      Action
+                    </label>
+                    <button
+                      id={`removeExit-${leg.id}`}
+                      type="button"
+                      className="exit-leg-remove"
+                      onClick={() => removeExitLeg(leg.id)}
+                      disabled={exitLegs.length === 1}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+              <button
+                type="button"
+                className="exit-leg-add"
+                onClick={addExitLeg}
+              >
+                + Add exit leg
+              </button>
+            </section>
+          )}
           <FormRow type="number" name="fees" labelText="Fees" step="any" />
 
           <button

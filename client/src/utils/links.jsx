@@ -41,13 +41,4 @@ export const SECTION_LABELS = {
   "/dashboard/news": "News",
 };
 
-export const DATE_FILTERS = [
-  "Today",
-  "This week",
-  "This month",
-  "This quarter",
-  "YTD",
-  "All time",
-];
-
 export default links;

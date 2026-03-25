@@ -3,7 +3,7 @@ import {
   Link,
   redirect,
   useNavigation,
-  useActionData,
+  useNavigate,
 } from "react-router-dom";
 import { Logo, FormRow } from "../components";
 import Starfield from "../components/Starfield";
@@ -33,9 +33,25 @@ export const action = async ({ request }) => {
 };
 
 const Login = () => {
-  const errors = useActionData();
+  const navigate = useNavigate();
   const navigation = useNavigation();
   const isSubmitting = navigation.state === "submitting";
+
+  const loginDemoUser = async () => {
+    const data = {
+      email: "dtrump@trump.com",
+      password: "donaldtrump",
+    };
+    try {
+      await customFetch.post("/auth/login", data);
+      toast.success("Take a test drive");
+      navigate("/dashboard");
+    } catch (error) {
+      toast.error(
+        error?.response?.data?.message ?? "Something went wrong. Try again.",
+      );
+    }
+  };
   return (
     <Wrapper>
       <Form method="post" className="form-page">
@@ -56,18 +72,21 @@ const Login = () => {
           <div className="form-card">
             <div className="form">
               <h4>Login</h4>
-              <FormRow
-                type="email"
-                name="email"
-                defaultValue="foosh@gmail.com"
-              />
-              <FormRow type="password" name="password" defaultValue="123456" />
+              <FormRow type="email" name="email" />
+              <FormRow type="password" name="password" />
               <button
                 type="submit"
-                className="btn btn-block"
+                className="btn btn-block form-btn"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Submitting..." : "Login"}
+              </button>
+              <button
+                type="button"
+                className="btn btn-block btn-explore"
+                onClick={loginDemoUser}
+              >
+                Explore the app
               </button>
               <p className="member-text">
                 New here?

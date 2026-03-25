@@ -1,5 +1,5 @@
 /* ============= GLOBAL CSS =============== */
-@import "./css/theme.css";
+/* Single global style sheet: design tokens, reset, typography, utilities. */
 
 *,
 ::after,
@@ -14,6 +14,22 @@ html {
 } /*16px*/
 
 :root {
+  /* Syzygy / cosmic palette (use in styled-components: var(--syzygy-bg), etc.) */
+  --syzygy-bg: #0f0f12;
+  --syzygy-surface: #1a1a1f;
+  --syzygy-card: #222228;
+  --syzygy-border: #2d2d35;
+  --syzygy-text: #e8e8ec;
+  --syzygy-text-inverse: #0f0f12;
+  --syzygy-muted: #8a8a94;
+  --syzygy-accent: #a0a0b0;
+  --syzygy-white: #ffffff;
+
+  /* 404 graphic – candlestick theme */
+  --error-404-bear: #ef1c24;
+  --error-404-bull: #1cbd52;
+  --error-404-chart: #2cb32c;
+
   /* Primary palette (teal – use for buttons, links when needed) */
   --primary-50: #e0fcff;
   --primary-100: #bef8fd;
@@ -53,6 +69,8 @@ html {
   --letter-spacing: 0.02em;
   --transition: 0.2s ease;
   --max-width: 1200px;
+  /* Wider content rail (e.g. dense data tables) */
+  --max-width-wide: min(100%, 90rem);
   --fixed-width: 600px;
   --fluid-width: 90vw;
   --nav-height: 6rem;
@@ -92,6 +110,12 @@ html {
   --star-color: rgba(0, 0, 0, 0.08);
 }
 
+@media (max-width: 768px) {
+  :root {
+    --nav-height: 3.5rem;
+  }
+}
+
 .dark-theme {
   --text-color: var(--dark-mode-text-color);
   --background-color: var(--dark-mode-bg-color);
@@ -107,6 +131,33 @@ html {
   --btn-bg: var(--syzygy-text);
   --btn-color: var(--syzygy-text-inverse);
   --star-color: rgba(255, 255, 255, 0.9);
+}
+
+/* 404 page animations */
+@keyframes error404-flicker {
+  0%,
+  18%,
+  22%,
+  25%,
+  53%,
+  57%,
+  100% {
+    opacity: 1;
+  }
+  20%,
+  24%,
+  55% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes error404-chart-move {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 /* Logo: dark in light mode, light in dark mode */

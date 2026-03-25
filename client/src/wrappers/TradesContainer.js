@@ -2,9 +2,17 @@ import styled from "styled-components";
 
 const Wrapper = styled.section`
   width: 100%;
-  max-width: var(--max-width);
+  max-width: var(--max-width-wide);
   margin: 0 auto;
   padding: 0 1rem max(1.5rem, env(safe-area-inset-bottom, 0px));
+
+  .trades-count {
+    font-size: var(--small-text);
+    font-weight: 600;
+    color: var(--text-secondary-color);
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+  }
 
   .trades-table {
     background: var(--card-background);
@@ -17,20 +25,23 @@ const Wrapper = styled.section`
   .trades-grid {
     display: grid;
     grid-template-columns:
-      minmax(4.5rem, 1fr)
-      minmax(4.25rem, 0.85fr)
-      minmax(4rem, 0.9fr)
-      minmax(4rem, 0.9fr)
-      minmax(3.25rem, 0.65fr)
-      minmax(6.5rem, 1fr)
+      minmax(5rem, 1.1fr)
+      minmax(4.75rem, 1fr)
       minmax(5rem, 1fr)
-      minmax(4.25rem, 0.85fr)
-      minmax(3.25rem, 3.5rem)
-      minmax(4.25rem, auto);
-    gap: 0.65rem 0.85rem;
+      minmax(4.5rem, 1fr)
+      minmax(4.5rem, 1fr)
+      minmax(7.5rem, 1fr)
+      minmax(8.75rem, 1.1fr)
+      minmax(6.5rem, 1.15fr)
+      minmax(5.5rem, 1fr)
+      minmax(4.75rem, 0.9fr)
+      minmax(3.5rem, 3.75rem)
+      minmax(4.75rem, auto);
+    gap: 0.65rem 1rem;
     align-items: center;
     padding: 0.65rem 1rem;
-    min-width: min(100%, 52rem);
+    /* Wide enough for 12 columns; horizontal scroll on smaller viewports */
+    min-width: min(100%, 82rem);
   }
 
   .trades-header {
@@ -41,9 +52,10 @@ const Wrapper = styled.section`
   .trades-header span {
     font-size: 0.65rem;
     font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--text-secondary-color);
+    white-space: nowrap;
   }
 
   .trades-header .trades-col-actions {

@@ -4,14 +4,16 @@ import { FiClipboard, FiBarChart2, FiBook } from "react-icons/fi";
 import Logo, { SyzygyWordmark } from "../components/Logo";
 import Starfield from "../components/Starfield";
 import Wrapper from "../wrappers/LandingPage";
-import SS1 from "../assets/images/SS1.PNG";
-import SS2 from "../assets/images/SS2.PNG";
-import SS3 from "../assets/images/SS3.PNG";
+import SS1 from "../assets/images/SYZDASH.png";
+import SS2 from "../assets/images/SYZALL.png";
+import SS3 from "../assets/images/SYZADD.png";
+import SS4 from "../assets/images/MARKET_PULSE.PNG";
 
 const SCREENSHOTS = [
   { src: SS1, alt: "SYZYGY — trade logging" },
   { src: SS2, alt: "SYZYGY — analytics" },
   { src: SS3, alt: "SYZYGY — journal" },
+  { src: SS4, alt: "Market Pulse" },
 ];
 const AUTO_ADVANCE_MS = 4500;
 
@@ -53,6 +55,16 @@ const LandingPage = () => {
       <nav className="nav">
         <Logo className="logo" />
         <div className="nav-actions">
+          <Link
+            to="/login"
+            className="nav-link nav-link-demo"
+            aria-label="Try demo"
+          >
+            <span className="nav-link-label nav-link-label--long">
+              Try Demo
+            </span>
+            <span className="nav-link-label nav-link-label--short">Demo</span>
+          </Link>
           <Link to="/login" className="nav-link">
             Login
           </Link>
@@ -85,11 +97,11 @@ const LandingPage = () => {
         </p>
         <p className="about-body">
           <span className="about-body-strong">SYZYGY</span> is a high precision
-          trading journal that gives you a celestial view of your performance
-          data. Don’t just log trades—but identify the exact geometry of your
-          success. Stop guessing and start tracking your edge with mathematical
-          clarity. Master the alignment of your strategy, and treat the market
-          as your personal orbit.
+          options trading journal that gives you a celestial view of your
+          performance data. Don’t just log trades—but identify the exact
+          geometry of your success. Stop guessing and start tracking your edge
+          with mathematical clarity. Master the alignment of your strategy, and
+          treat the market as your personal orbit.
         </p>
       </section>
 

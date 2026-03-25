@@ -59,9 +59,13 @@ const Notes = () => {
       <div className="notes-card">
         <h1 className="notes-title">Trade journal</h1>
         <p className="notes-meta">
-          <strong>{`${trade.ticker} ${trade.strike} ${trade.side} `}</strong>
+          <strong>
+            {[trade.ticker, trade.strike, trade.positionSide]
+              .filter((v) => v != null && v !== "")
+              .join(" ")}
+          </strong>
           {trade.expiration
-            ? ` · ${new Date(trade.expiration).toLocaleString()}`
+            ? ` · ${new Date(trade.expiration).toLocaleDateString()}`
             : null}
         </p>
 
@@ -85,7 +89,7 @@ const Notes = () => {
                 key={`${trade.id}-${trade.updatedAt}`}
                 value={notesHtml}
                 onChange={setNotesHtml}
-                placeholder="Why did you take this trade? Did you follow your rules? What did you learn?"
+                placeholder=""
               />
             </div>
           </div>

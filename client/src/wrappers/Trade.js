@@ -98,8 +98,9 @@ const Wrapper = styled.article`
       grid-template-columns: 1fr 1fr;
       grid-template-areas:
         "sym sym"
-        "pnl pnl"
-        "side stat"
+        "pnl roi"
+        "exe pos"
+        "st st"
         "ent ext"
         "qty dat"
         "nt act";
@@ -125,8 +126,7 @@ const Wrapper = styled.article`
       margin-bottom: 0.3rem;
     }
 
-    .trade-cell--symbol .trade-cell__label,
-    .trade-cell--pnl .trade-cell__label {
+    .trade-cell--symbol .trade-cell__label {
       display: none;
     }
 
@@ -144,9 +144,22 @@ const Wrapper = styled.article`
       grid-area: pnl;
       justify-self: start;
       text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
-    .trade-cell--pnl .trade-cell__value {
+    .trade-cell--roi {
+      grid-area: roi;
+      justify-self: end;
+      text-align: right;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+
+    .trade-cell--pnl .trade-cell__value,
+    .trade-cell--roi .trade-cell__value {
       font-size: 1.05rem;
     }
 
@@ -170,14 +183,20 @@ const Wrapper = styled.article`
       gap: 0.25rem;
     }
 
-    .trade-cell--side {
-      grid-area: side;
+    .trade-cell--execution {
+      grid-area: exe;
+    }
+
+    .trade-cell--position {
+      grid-area: pos;
+      justify-self: end;
+      text-align: right;
     }
 
     .trade-cell--status {
-      grid-area: stat;
-      justify-self: end;
-      text-align: right;
+      grid-area: st;
+      justify-self: center;
+      text-align: center;
     }
 
     .trade-cell--entry {
@@ -200,7 +219,8 @@ const Wrapper = styled.article`
       text-align: right;
     }
 
-    .trade-cell--side,
+    .trade-cell--execution,
+    .trade-cell--position,
     .trade-cell--status,
     .trade-cell--entry,
     .trade-cell--exit,
@@ -211,7 +231,7 @@ const Wrapper = styled.article`
       align-items: flex-start;
     }
 
-    .trade-cell--status,
+    .trade-cell--position,
     .trade-cell--exit,
     .trade-cell--date {
       align-items: flex-end;
