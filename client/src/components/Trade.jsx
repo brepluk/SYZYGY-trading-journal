@@ -66,9 +66,14 @@ const Trade = ({
     Array.isArray(exitLegs) && exitLegs.length > 0
       ? exitLegs[exitLegs.length - 1]?.price
       : exitPrice;
-  const exitDisplay = String(status ?? "").toUpperCase() === "OPEN" ? "—" : money(latestExitPrice);
+  const exitDisplay =
+    String(status ?? "").toUpperCase() === "OPEN"
+      ? "—"
+      : money(latestExitPrice);
   const exitsLabel =
-    Array.isArray(exitLegs) && exitLegs.length > 0 ? ` (${exitLegs.length})` : "";
+    Array.isArray(exitLegs) && exitLegs.length > 0
+      ? ` (${exitLegs.length})`
+      : "";
 
   return (
     <Wrapper className="trade-row trades-grid">

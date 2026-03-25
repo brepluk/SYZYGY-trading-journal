@@ -95,18 +95,18 @@ const Wrapper = styled.article`
 
     &.trade-row.trades-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       grid-template-areas:
-        "sym sym"
+        "sym st"
         "pnl roi"
         "exe pos"
-        "st st"
         "ent ext"
         "qty dat"
         "nt act";
-      gap: 0.75rem 1rem;
+      row-gap: 0.55rem;
+      column-gap: 0.85rem;
       align-items: start;
-      padding: 1rem 1.1rem;
+      padding: 0.9rem 1rem;
       margin: 0;
       min-width: 0;
       border-bottom: none;
@@ -118,12 +118,12 @@ const Wrapper = styled.article`
 
     .trade-cell__label {
       display: block;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       color: var(--text-secondary-color);
-      margin-bottom: 0.3rem;
+      margin-bottom: 0.22rem;
     }
 
     .trade-cell--symbol .trade-cell__label {
@@ -132,17 +132,22 @@ const Wrapper = styled.article`
 
     .trade-cell--symbol {
       grid-area: sym;
+      align-self: center;
+      min-width: 0;
     }
 
     .trade-cell--symbol .trade-cell__value {
       font-size: 1.125rem;
       font-weight: 700;
       letter-spacing: 0.03em;
+      line-height: 1.2;
     }
 
     .trade-cell--pnl {
       grid-area: pnl;
-      justify-self: start;
+      justify-self: stretch;
+      width: 100%;
+      min-width: 0;
       text-align: left;
       display: flex;
       flex-direction: column;
@@ -151,7 +156,9 @@ const Wrapper = styled.article`
 
     .trade-cell--roi {
       grid-area: roi;
-      justify-self: end;
+      justify-self: stretch;
+      width: 100%;
+      min-width: 0;
       text-align: right;
       display: flex;
       flex-direction: column;
@@ -161,6 +168,11 @@ const Wrapper = styled.article`
     .trade-cell--pnl .trade-cell__value,
     .trade-cell--roi .trade-cell__value {
       font-size: 1.05rem;
+      max-width: 100%;
+    }
+
+    .trade-cell--roi .trade-cell__value {
+      text-align: right;
     }
 
     .trade-cell--notes {
@@ -195,8 +207,9 @@ const Wrapper = styled.article`
 
     .trade-cell--status {
       grid-area: st;
-      justify-self: center;
-      text-align: center;
+      justify-self: end;
+      align-self: center;
+      text-align: right;
     }
 
     .trade-cell--entry {
@@ -233,7 +246,8 @@ const Wrapper = styled.article`
 
     .trade-cell--position,
     .trade-cell--exit,
-    .trade-cell--date {
+    .trade-cell--date,
+    .trade-cell--status {
       align-items: flex-end;
     }
 

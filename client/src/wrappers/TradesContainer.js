@@ -46,7 +46,11 @@ const Wrapper = styled.section`
 
   .trades-header {
     border-bottom: 1px solid var(--border-color);
-    background: color-mix(in srgb, var(--text-color) 4%, var(--card-background));
+    background: color-mix(
+      in srgb,
+      var(--text-color) 4%,
+      var(--card-background)
+    );
   }
 
   .trades-header span {
