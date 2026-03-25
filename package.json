@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "postinstall": "prisma generate",
-    "setup-production-app": "rm -rf client/dist client/node_modules node_modules && npm install && npm run build",
+    "setup-production-app": "npm i && cd client && npm i && npm run build",
     "build": "cd client && npm install && npm run build",
     "setup-project": "npm i && cd client && npm i",
     "server": "nodemon server",
