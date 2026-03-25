@@ -6,7 +6,7 @@ import Wrapper from "../wrappers/LandingPage";
 import SS1 from "../assets/images/SYZDASH.png";
 import SS2 from "../assets/images/SYZALL.png";
 import SS3 from "../assets/images/SYZADD.png";
-import SS4 from "../assets/images/MARKET_PULSE.PNG";
+import SS4 from "../assets/images/MARKET_PULSE.png";
 
 const SCREENSHOTS = [
   { src: SS1, alt: "SYZYGY — trade logging" },
