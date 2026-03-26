@@ -7,13 +7,11 @@ import {
   shiftCalendarMonth,
   buildCalendarGrid,
 } from "../utils/dashboardDateRange";
-import { formatSignedMoney, formatSignedMoneyCompact } from "../utils/formatMoney";
-import { useMediaQuery } from "../hooks/useMediaQuery";
+import { formatSignedMoneyCompact } from "../utils/formatMoney";
 
 const WEEKDAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const TradingCalendar = () => {
-  const narrowScreen = useMediaQuery("(max-width: 768px)");
   const now = dayjs();
   const [view, setView] = useState({
     year: now.year(),
@@ -139,9 +137,7 @@ const TradingCalendar = () => {
                   {hasTrades ? (
                     <>
                       <span className="trading-calendar-pnl">
-                        {narrowScreen
-                          ? formatSignedMoneyCompact(info.netPnl)
-                          : formatSignedMoney(info.netPnl)}
+                        {formatSignedMoneyCompact(info.netPnl)}
                       </span>
                       <span className="trading-calendar-count">
                         {info.trades} trade{info.trades === 1 ? "" : "s"}

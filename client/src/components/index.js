@@ -12,3 +12,4 @@ export { default as TradeNotesEditor } from "./TradeNotesEditor";
 export { default as TradeTradingViewChart } from "./TradeTradingViewChart";
 export { default as DashboardCumulativeChart } from "./DashboardCumulativeChart";
 export { default as TradingCalendar } from "./TradingCalendar";
+export { default as Loading } from "./Loading";

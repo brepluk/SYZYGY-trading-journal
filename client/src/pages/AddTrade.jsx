@@ -19,11 +19,13 @@ const newExitLeg = () => ({
   note: "",
 });
 
-export const action = async ({ request }) => {
+export const action = (queryClient) => async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
     await customFetch.post("/trades", data);
+    queryClient.invalidateQueries({ queryKey: ["trades"] });
+    queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] });
     toast.success("Trade added successfully");
     return redirect("/dashboard/all-trades");
   } catch (error) {

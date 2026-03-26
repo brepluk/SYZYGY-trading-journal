@@ -8,11 +8,12 @@ import { redirect } from "react-router-dom";
 import { toast } from "react-toastify";
 import { FormRow } from "../components";
 
-export const action = async ({ request }) => {
+export const action = (queryClient) => async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
     await customFetch.patch("/users/update-user", data);
+    queryClient.invalidateQueries({ queryKey: ["user"] });
     toast.success("Profile updated successfully");
     return redirect("/dashboard/all-trades");
   } catch (error) {

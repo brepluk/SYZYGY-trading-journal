@@ -4,6 +4,8 @@ dotenv.config();
 import express from "express";
 import path from "path";
 import { fileURLToPath } from "url";
+import helmet from "helmet";
+import hpp from "hpp";
 
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
@@ -35,6 +37,8 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(cookieParser());
+app.use(helmet());
+app.use(hpp());
 app.use(express.json());
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));

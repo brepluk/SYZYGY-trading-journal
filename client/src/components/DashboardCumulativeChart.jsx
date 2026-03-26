@@ -11,7 +11,6 @@ import {
   ReferenceLine,
 } from "recharts";
 import { formatMoney, formatMoneyCompact } from "../utils/formatMoney";
-import { useMediaQuery } from "../hooks/useMediaQuery";
 
 const fullCurrencyAxis = (v) =>
   new Intl.NumberFormat("en-US", {
@@ -107,11 +106,10 @@ const CustomTooltip = ({ active, payload, compactMoney }) => {
 };
 
 const DashboardCumulativeChart = ({ dailySeries }) => {
-  const narrowScreen = useMediaQuery("(max-width: 768px)");
   const data = buildChartData(dailySeries);
 
   const yAxisTick = (v) => {
-    if (narrowScreen && Math.abs(v) >= 1000) return formatMoneyCompact(v);
+    if (Math.abs(v) >= 1000) return formatMoneyCompact(v);
     return fullCurrencyAxis(v);
   };
 
@@ -168,10 +166,10 @@ const DashboardCumulativeChart = ({ dailySeries }) => {
               tickFormatter={yAxisTick}
               stroke="var(--text-secondary-color)"
               tick={{ fontSize: 11 }}
-              width={narrowScreen ? 44 : 56}
+              width={56}
             />
             <Tooltip
-              content={<CustomTooltip compactMoney={narrowScreen} />}
+              content={<CustomTooltip compactMoney={false} />}
             />
             <Area
               type="linear"

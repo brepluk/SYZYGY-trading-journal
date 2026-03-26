@@ -57,13 +57,11 @@ const News = () => {
 
   const articles = data?.articles ?? [];
   const trumpTape = data?.trumpTape ?? [];
-  const tapeFallback = data?.trumpTapeFallback === true;
   const isDemo = data?.mock === true;
   const updatedAt = data?.updatedAt ? new Date(data.updatedAt) : null;
   const totalArticles = data?.totalArticles ?? articles.length;
   const numPages = data?.numPages ?? 1;
   const currentPage = data?.currentPage ?? 1;
-  const isRefreshing = revalidator.state === "loading";
 
   return (
     <Wrapper>
@@ -82,7 +80,7 @@ const News = () => {
           {updatedAt && (
             <span>
               Updated {formatRelativeTime(updatedAt)} · every{" "}
-              {REFRESH_MS / 1000}s{isRefreshing ? " · refreshing…" : ""}
+              {REFRESH_MS / 1000}s
             </span>
           )}
         </div>

@@ -9,9 +9,115 @@
   box-sizing: border-box;
 }
 
+/* Fix: intended selectors for reset (in case earlier invalid selectors exist). */
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   font-size: 100%;
 } /*16px*/
+
+:root {
+  /* Syzygy / cosmic palette (use in styled-components: var(--syzygy-bg), etc.) */
+  --syzygy-bg: #0f0f12;
+  --syzygy-surface: #1a1a1f;
+  --syzygy-card: #222228;
+  --syzygy-border: #2d2d35;
+  --syzygy-text: #e8e8ec;
+  --syzygy-text-inverse: #0f0f12;
+  --syzygy-muted: #8a8a94;
+  --syzygy-accent: #a0a0b0;
+  --syzygy-white: #ffffff;
+
+  /* 404 graphic – candlestick theme */
+  --error-404-bear: #ef1c24;
+  --error-404-bull: #1cbd52;
+  --error-404-chart: #2cb32c;
+
+  /* Primary palette (teal – use for buttons, links when needed) */
+  --primary-50: #e0fcff;
+  --primary-100: #bef8fd;
+  --primary-200: #87eaf2;
+  --primary-300: #54d1db;
+  --primary-400: #38bec9;
+  --primary-500: #2cb1bc;
+  --primary-600: #14919b;
+  --primary-700: #0e7c86;
+  --primary-800: #0a6c74;
+  --primary-900: #044e54;
+
+  /* Grey scale (for form/utility use) */
+  --grey-50: #f8fafc;
+  --grey-100: #f1f5f9;
+  --grey-200: #e2e8f0;
+  --grey-300: #cbd5e1;
+  --grey-400: #94a3b8;
+  --grey-500: #64748b;
+  --grey-600: #475569;
+  --grey-700: #334155;
+  --grey-800: #1e293b;
+  --grey-900: #0f172a;
+
+  --black: #222;
+  --white: #fff;
+  --red-light: #f8d7da;
+  --red-dark: #842029;
+  --green-light: #d1e7dd;
+  --green-dark: #0f5132;
+
+  --small-text: 0.875rem;
+  --extra-small-text: 0.7em;
+
+  --border-radius: 0.25rem;
+  --border-radius-lg: 0.5rem;
+  --letter-spacing: 0.02em;
+  --transition: 0.2s ease;
+  --max-width: 1200px;
+  /* Wider content rail (e.g. dense data tables) */
+  --max-width-wide: min(100%, 90rem);
+  --fixed-width: 600px;
+  --fluid-width: 90vw;
+  --nav-height: 6rem;
+
+  --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --shadow-2:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-3:
+    0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-4:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  --shadow-syzygy: 0 20px 50px rgba(0, 0, 0, 0.4);
+
+  /* DARK MODE (Syzygy) – used when .dark-theme is on body */
+  --dark-mode-bg-color: var(--syzygy-bg);
+  --dark-mode-text-color: var(--syzygy-text);
+  --dark-mode-bg-secondary-color: var(--syzygy-surface);
+  --dark-mode-text-secondary-color: var(--syzygy-muted);
+
+  /* Light theme (default) – all white */
+  --background-color: var(--white);
+  --text-color: var(--grey-900);
+  --background-secondary-color: var(--white);
+  --text-secondary-color: var(--grey-500);
+  --border-color: var(--grey-200);
+  --logo-color: var(--grey-900);
+  --card-background: var(--white);
+  --accent-color: var(--grey-700);
+
+  /* 404 – light mode: dark accents on white */
+  --error-404-neon-green: #0f5132;
+  --error-404-neon-red: #842029;
+
+  --theme-option-active-bg: var(--grey-100);
+  --btn-bg: var(--grey-900);
+  --btn-color: var(--white);
+  --star-color: rgba(0, 0, 0, 0.08);
+}
 
 :root {
   /* Syzygy / cosmic palette (use in styled-components: var(--syzygy-bg), etc.) */
@@ -474,6 +580,15 @@ button:disabled {
   font-family: inherit;
   color: var(--text-secondary-color);
 }
+
+::placeholder {
+  font-family: inherit;
+  color: var(--text-secondary-color);
+}
+::placeholder {
+  font-family: inherit;
+  color: var(--text-secondary-color);
+}
 .form-alert {
   color: var(--red-dark);
   letter-spacing: var(--letter-spacing);
@@ -514,19 +629,4 @@ button:disabled {
   width: var(--fluid-width);
   max-width: var(--max-width);
   margin: 0 auto;
-}
-
-/* BUTTONS AND BADGES */
-.pending {
-  background: #fef3c7;
-  color: #f59e0b;
-}
-
-.interview {
-  background: #e0e8f9;
-  color: #647acb;
-}
-.declined {
-  background: #ffeeee;
-  color: #d66a6a;
 }

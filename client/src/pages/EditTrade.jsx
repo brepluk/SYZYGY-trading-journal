@@ -12,6 +12,7 @@ import {
   POSITION_SIDE_FORM_OPTIONS,
 } from "../../../utils/constants";
 import { toDateInputValue, toDateTimeLocalValue } from "../utils/dateUtils";
+import { useQuery } from "@tanstack/react-query";
 
 const newExitLeg = () => ({
   id: crypto.randomUUID(),
@@ -21,10 +22,18 @@ const newExitLeg = () => ({
   note: "",
 });
 
-export const loader = async ({ params }) => {
-  try {
-    const { data } = await customFetch.get(`/trades/${params.id}`);
+const singleTradeQuery = (id) => ({
+  queryKey: ["trade", id],
+  queryFn: async () => {
+    const { data } = await customFetch.get(`/trades/${id}`);
     return data;
+  },
+});
+
+export const loader = (queryClient) => async ({ params }) => {
+  try {
+    await queryClient.ensureQueryData(singleTradeQuery(params.id));
+    return params.id;
   } catch (error) {
     toast.error(
       error?.response?.data?.message ?? "Could not load trade. Try again.",
@@ -33,11 +42,14 @@ export const loader = async ({ params }) => {
   }
 };
 
-export const action = async ({ request, params }) => {
+export const action = (queryClient) => async ({ request, params }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   try {
     await customFetch.patch(`/trades/${params.id}`, data);
+    queryClient.invalidateQueries({ queryKey: ["trades"] });
+    queryClient.invalidateQueries({ queryKey: ["trade", params.id] });
+    queryClient.invalidateQueries({ queryKey: ["dashboard-stats"] });
     toast.success("Trade updated successfully");
     return redirect("/dashboard/all-trades");
   } catch (error) {
@@ -47,7 +59,10 @@ export const action = async ({ request, params }) => {
 };
 
 const EditTrade = () => {
-  const { trade } = useLoaderData();
+  const id = useLoaderData();
+  const {
+    data: { trade },
+  } = useQuery(singleTradeQuery(id));
   const navigation = useNavigation();
   const isUpdating = navigation.state === "updating";
   const [status, setStatus] = useState(trade.status);

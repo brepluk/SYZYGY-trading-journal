@@ -10,7 +10,7 @@ import Wrapper from "../wrappers/RegisterAndLoginPage";
 import { toast } from "react-toastify";
 import customFetch from "../utils/customFetch";
 
-export const action = async ({ request }) => {
+export const action = (queryClient) => async ({ request }) => {
   const formData = await request.formData();
   const data = Object.fromEntries(formData);
   const errors = { message: "" };
@@ -21,6 +21,7 @@ export const action = async ({ request }) => {
 
   try {
     await customFetch.post("/auth/login", data);
+    queryClient.invalidateQueries();
     toast.success("Logged in successfully");
     return redirect("/dashboard");
   } catch (error) {

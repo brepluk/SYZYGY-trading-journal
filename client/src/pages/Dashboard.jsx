@@ -1,9 +1,5 @@
 import { useEffect } from "react";
-import {
-  useLoaderData,
-  useRevalidator,
-  useSearchParams,
-} from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import Wrapper from "../wrappers/Dashboard";
 import TradingCalendar from "../components/TradingCalendar";
@@ -11,21 +7,23 @@ import DashboardCumulativeChart from "../components/DashboardCumulativeChart";
 import customFetch from "../utils/customFetch";
 import { normalizeDateRangeKey } from "../utils/dashboardDateRange";
 import { formatMoney, formatPercent } from "../utils/formatMoney";
+import { useQuery } from "@tanstack/react-query";
 
-export const loader = async ({ request }) => {
-  const url = new URL(request.url);
-  const range = normalizeDateRangeKey(url.searchParams.get("range"));
-  try {
+const dashboardStatsQuery = (range) => ({
+  queryKey: ["dashboard-stats", range],
+  queryFn: async () => {
     const { data } = await customFetch.get("/trades/dashboard-stats", {
       params: { range },
     });
-    return { stats: data, range };
-  } catch (error) {
-    toast.error(
-      error?.response?.data?.message ?? "Could not load dashboard stats.",
-    );
-    return { stats: null, range, error: true };
-  }
+    return data;
+  },
+});
+
+export const loader = (queryClient) => async ({ request }) => {
+  const url = new URL(request.url);
+  const range = normalizeDateRangeKey(url.searchParams.get("range"));
+  await queryClient.ensureQueryData(dashboardStatsQuery(range));
+  return { range };
 };
 
 const toneClass = (n) => {
@@ -36,16 +34,17 @@ const toneClass = (n) => {
 };
 
 const Dashboard = () => {
-  const { stats, range } = useLoaderData();
   const [searchParams] = useSearchParams();
-  const revalidator = useRevalidator();
   const urlRange = normalizeDateRangeKey(searchParams.get("range"));
+  const { data: stats, isError, error } = useQuery(dashboardStatsQuery(urlRange));
 
   useEffect(() => {
-    if (urlRange !== range) {
-      revalidator.revalidate();
+    if (isError) {
+      toast.error(
+        error?.response?.data?.message ?? "Could not load dashboard stats.",
+      );
     }
-  }, [urlRange, range, revalidator]);
+  }, [isError, error]);
 
   const summary = stats?.summary;
   const dailySeries = stats?.dailySeries;
