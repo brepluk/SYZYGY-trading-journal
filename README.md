@@ -117,5 +117,12 @@ The frontend talks to the backend under `/api/v1`:
 
 ## Future improvements
 
-This is still a growing project. Some obvious next steps are adding more analytics pages (the `Stats` route is currently a stub), improving UX around trade editing edge cases, and continuing to harden validation/error handling.
+This is still a growing project. Next steps I’m working toward include:
 
+- Improving the news backend (more reliable endpoints, better parsing, and a cleaner feed format)
+- Adding watchlists so I can show targeted ticker news instead of the same general feed
+- Updating the “Trump tape” area so it stays closer to what’s happening live (and using a more robust source pipeline)
+- Generating monthly trade performance reports (summary + wins/losses + P&L breakdown)
+- Bringing in more macro + technical context to pair with the journal (so the “why” behind trades is easier to review)
+
+Eventually I also want to use AI here in a practical way: for example, turning long news items and monthly report data into clearer summaries and journal friendly highlights (instead of just dumping raw text).
