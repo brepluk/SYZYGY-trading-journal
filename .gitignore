@@ -23,6 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 .env
+docs
+
 /generated/prisma
 
 # Local trade screenshot uploads (dev)

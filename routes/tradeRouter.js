@@ -9,9 +9,11 @@ import {
   updateTrade,
   deleteTrade,
   uploadTradeImage,
+} from "../controllers/tradeController.js";
+import {
   getDashboardStats,
   getDashboardCalendar,
-} from "../controllers/tradeController.js";
+} from "../controllers/dashboardController.js";
 import {
   validateCreateTradeInput,
   validateIdParam,
