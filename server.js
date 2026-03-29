@@ -37,7 +37,33 @@ if (process.env.NODE_ENV === "development") {
 }
 
 app.use(cookieParser());
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        "script-src": [
+          "'self'",
+          "https://s3.tradingview.com",
+          "https://www.tradingview.com",
+        ],
+        "frame-src": [
+          "'self'",
+          "https://s3.tradingview.com",
+          "https://www.tradingview.com",
+          "https://*.tradingview.com",
+        ],
+        "img-src": ["'self'", "data:", "https:", "blob:"],
+        "connect-src": [
+          "'self'",
+          "https://www.tradingview.com",
+          "https://*.tradingview.com",
+          "wss://*.tradingview.com",
+        ],
+      },
+    },
+  }),
+);
 app.use(hpp());
 app.use(express.json());
 
