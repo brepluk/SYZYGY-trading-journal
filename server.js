@@ -39,35 +39,8 @@ if (process.env.NODE_ENV === "development") {
 app.use(cookieParser());
 app.use(
   helmet({
-    contentSecurityPolicy: {
-      directives: {
-        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
-        "script-src": [
-          "'self'",
-          "https://s3.tradingview.com",
-          "https://www.tradingview.com",
-          "https://www.tradingview-widget.com",
-        ],
-        "frame-src": [
-          "'self'",
-          "https://s3.tradingview.com",
-          "https://www.tradingview.com",
-          "https://*.tradingview.com",
-          "https://www.tradingview-widget.com",
-          "https://*.tradingview-widget.com",
-        ],
-        "img-src": ["'self'", "data:", "https:", "blob:"],
-        "connect-src": [
-          "'self'",
-          "https://www.tradingview.com",
-          "https://*.tradingview.com",
-          "wss://*.tradingview.com",
-          "https://www.tradingview-widget.com",
-          "https://*.tradingview-widget.com",
-          "wss://*.tradingview-widget.com",
-        ],
-      },
-    },
+    // CSP off: TradingView embed needs many third-party origins; a tight allowlist breaks easily.
+    contentSecurityPolicy: false,
   }),
 );
 app.use(hpp());
