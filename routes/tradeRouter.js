@@ -29,7 +29,7 @@ const upload = multer({
 router
   .route("/")
   .get(getAllTrades)
-  .post(checkForTestUser, validateCreateTradeInput, createTrade);
+  .post( validateCreateTradeInput, createTrade);
 router.post(
   "/upload-image",
   checkForTestUser,
