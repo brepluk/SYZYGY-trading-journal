@@ -8,14 +8,6 @@ import { formatRelativeTime } from "../utils/dateUtils";
 
 const REFRESH_MS = 60_000;
 
-function tagClass(cat) {
-  if (cat === "stocks") return "tag--stocks";
-  if (cat === "forex") return "tag--forex";
-  if (cat === "crypto") return "tag--crypto";
-  if (cat === "merger") return "tag--merger";
-  return "tag--general";
-}
-
 export const loader = async ({ request }) => {
   try {
     const params = Object.fromEntries([
@@ -111,13 +103,6 @@ const News = () => {
                 className="news-card"
               >
                 <div className="news-card__top">
-                  <span className={`tag ${tagClass(a.category)}`}>
-                    {a.category === "stocks"
-                      ? a.symbol
-                        ? `stocks · ${a.symbol}`
-                        : "stocks"
-                      : a.category}
-                  </span>
                   <span className="news-card__time">
                     {formatRelativeTime((a.datetime || 0) * 1000)}
                   </span>

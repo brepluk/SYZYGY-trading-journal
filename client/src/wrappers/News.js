@@ -138,63 +138,8 @@ const Wrapper = styled.section`
 
   .news-card__top {
     display: flex;
-    justify-content: space-between;
-    gap: 0.75rem;
+    justify-content: flex-end;
     margin-bottom: 0.5rem;
-  }
-
-  .tag {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-weight: 600;
-    padding: 0.15rem 0.45rem;
-    border-radius: 0.25rem;
-  }
-
-  .tag--general {
-    background: rgba(56, 190, 201, 0.2);
-    color: var(--primary-800);
-    body.dark-theme & {
-      background: rgba(56, 190, 201, 0.14);
-      color: #b8ecf0;
-    }
-  }
-
-  .tag--forex {
-    background: rgba(147, 51, 234, 0.15);
-    color: #6b21a8;
-    body.dark-theme & {
-      background: rgba(147, 51, 234, 0.12);
-      color: #d8b4fe;
-    }
-  }
-
-  .tag--crypto {
-    background: rgba(234, 179, 8, 0.2);
-    color: #854d0e;
-    body.dark-theme & {
-      background: rgba(234, 179, 8, 0.12);
-      color: #fde68a;
-    }
-  }
-
-  .tag--merger {
-    background: rgba(99, 102, 241, 0.18);
-    color: #3730a3;
-    body.dark-theme & {
-      background: rgba(129, 140, 248, 0.14);
-      color: #c7d2fe;
-    }
-  }
-
-  .tag--stocks {
-    background: rgba(16, 185, 129, 0.18);
-    color: #047857;
-    body.dark-theme & {
-      background: rgba(52, 211, 153, 0.12);
-      color: #a7f3d0;
-    }
   }
 
   .news-card__time {
@@ -354,16 +299,10 @@ const Wrapper = styled.section`
       padding: 0.85rem 1rem;
     }
 
-    .news-card__top {
-      flex-wrap: wrap;
-      align-items: flex-start;
-    }
-
     .news-card__time {
       white-space: normal;
-      margin-left: auto;
       text-align: right;
-      max-width: 45%;
+      max-width: 100%;
     }
 
     .news-card__title {
