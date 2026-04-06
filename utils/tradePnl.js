@@ -98,7 +98,7 @@ export function computeRealizedPnlFromTradeSnapshot(trade) {
   return { pnl: null, pnlPercent: null };
 }
 
-/** For analytics: prefer computed realized P&amp;L; else stored `pnl`; else 0. */
+/** For analytics: prefer computed realized pnl; else stored pnl; else 0 */
 export function resolvedRealizedPnl(trade) {
   const { pnl: computed } = computeRealizedPnlFromTradeSnapshot(trade);
   if (computed != null && Number.isFinite(computed)) return computed;
