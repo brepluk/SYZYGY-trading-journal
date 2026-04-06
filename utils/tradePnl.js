@@ -4,19 +4,19 @@ import {
   TRADE_STATUS,
 } from "./constants.js";
 
-/** US equity options: dollar P&amp;L uses ×100 per contract on premium. */
+/** pnl ×100 per contract on premium. */
 export function pnlNotionalMultiplier(assetType) {
   return assetType === ASSET_TYPE.OPTION ? 100 : 1;
 }
 
-/** Long vs short P&amp;L slope: use opening-side direction (BUY=long, SELL=short). */
+/** Long vs short pnl slope: use opening side direction (BUY=long, SELL=short) */
 function useShortPnlFormula(side) {
   return side === TRADE_SIDE.SELL;
 }
 
 /**
- * Realized P&amp;L from scale-out exits (same formula All Trades + calendar use).
- * Long: sum((exit − entry) × qty) × mult − fees. Short: sum((entry − exit) × qty) × mult − fees.
+ * Realized pnl from scale out exits (same formula All Trades + calendar use).
+ * Long: sum((exit − entry) × qty) × mult − fees. Short: sum((entry − exit) × qty) × mult − fees
  */
 export function computeRealizedPnlFromExitLegs({
   side,
@@ -63,7 +63,7 @@ export function computeRealizedPnlFromExitLegs({
 }
 
 /**
- * Uses exit legs when present; otherwise one closed exit from `exitPrice` + `quantity`/`contracts`.
+ * Uses exit legs when present; otherwise one closed exit from exitPrice + quantity/contracts
  */
 export function computeRealizedPnlFromTradeSnapshot(trade) {
   const legs = trade.exitLegs;
